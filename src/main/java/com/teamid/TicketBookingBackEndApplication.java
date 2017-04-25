@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TicketBookingBackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TicketBookingBackEndApplication.class, args);
+		SpringApplication app = new SpringApplication(TicketBookingBackEndApplication.class);
+		app.setWebEnvironment(true);
+		app.run(args);
 	}
 }
