@@ -57,7 +57,6 @@ public class UserController {
 
         if (user != null) {
             session.setAttribute("userId", user.getId());
-            System.out.println(session.toString());
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
         else
@@ -68,6 +67,9 @@ public class UserController {
 
     @GetMapping(value = "/userinfo")
     public ResponseEntity<?> userinfo(HttpSession session){
+
+        if (session.getAttribute("userId") == null)
+            throw new UnauthorizedException("Login first");
 
         long userId = (long)session.getAttribute("userId");
         User user = userService.findUserById(userId);
