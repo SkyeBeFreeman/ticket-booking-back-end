@@ -4,6 +4,7 @@ import com.teamid.entity.Ticket;
 import com.teamid.entity.TicketStatus;
 import com.teamid.entity.exception.ForbiddenException;
 import com.teamid.entity.exception.NotFoundException;
+import com.teamid.entity.exception.UnauthorizedException;
 import com.teamid.service.TicketService;
 import com.teamid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,11 @@ public class TicketController {
 
     @PostMapping(value = "/buy/{ticketId}")
     public ResponseEntity<?> buyTicket(@PathVariable long ticketId, HttpSession session) {
-        long userId = (long) session.getAttribute("userId");
+        Object obj = session.getAttribute("userId");
+        if (obj == null) {
+            throw new UnauthorizedException("Please login first");
+        }
+        long userId = (long) obj;
         if (userService.findUserById(userId) == null) {
             throw new NotFoundException("User not found");
         }
