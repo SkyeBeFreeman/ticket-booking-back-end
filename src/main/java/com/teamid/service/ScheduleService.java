@@ -2,6 +2,7 @@ package com.teamid.service;
 
 import com.teamid.entity.Schedule;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Optional;
  */
 public interface ScheduleService {
 
-    Optional<Schedule> findScheduleByCinemaIdAndMovieId(long cinemaId, long movieId);
+    Optional<Schedule> findScheduleByScheduleId(long scheduleId);
+
+    List<Schedule> findSchedulesByCinemaIdAndMovieId(long cinemaId, long movieId);
 
 }

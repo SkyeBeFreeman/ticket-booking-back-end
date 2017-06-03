@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleDAO scheduleDAO;
 
     @Override
-    public Optional<Schedule> findScheduleByCinemaIdAndMovieId(long cinemaId, long movieId) {
-        return scheduleDAO.findScheduleByCinemaIdAndMovieId(cinemaId, movieId);
+    public Optional<Schedule> findScheduleByScheduleId(long scheduleId) {
+        return scheduleDAO.findScheduleByScheduleId(scheduleId);
+    }
+
+    @Override
+    public List<Schedule> findSchedulesByCinemaIdAndMovieId(long cinemaId, long movieId) {
+        return scheduleDAO.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
     }
 }
