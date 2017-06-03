@@ -1,6 +1,6 @@
 package com.teamid.controller;
 
-import com.teamid.entity.SchedeleTotal;
+import com.teamid.entity.ScheduleTotal;
 import com.teamid.entity.Schedule;
 import com.teamid.entity.Ticket;
 import com.teamid.entity.exception.NotFoundException;
@@ -47,7 +47,7 @@ public class ScheduleController {
         if (ticketList == null || ticketList.isEmpty()) {
             throw new NotFoundException("Ticket Not Found");
         }
-        SchedeleTotal responseObject = new SchedeleTotal(temp.get(), ticketList);
+        ScheduleTotal responseObject = new ScheduleTotal(temp.get(), ticketList);
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 

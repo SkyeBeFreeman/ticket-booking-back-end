@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Skye on 2017/6/3.
  */
-public class SchedeleTotal {
+public class ScheduleTotal {
 
     private long id;
 
@@ -23,7 +23,7 @@ public class SchedeleTotal {
 
     private List<Ticket> tickets;
 
-    public SchedeleTotal(Schedule schedule, List<Ticket> tickets) {
+    public ScheduleTotal(Schedule schedule, List<Ticket> tickets) {
         this.id = schedule.getId();
         this.cinemaId = schedule.getCinemaId();
         this.movieId = schedule.getMovieId();
