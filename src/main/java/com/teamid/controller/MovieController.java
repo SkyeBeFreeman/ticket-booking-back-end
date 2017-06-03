@@ -7,10 +7,7 @@ import com.teamid.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Wangzf on 2017/6/3.
@@ -25,7 +22,7 @@ public class MovieController {
     @Autowired
     private CinemaService cinemaService;
 
-    @PostMapping(value = "/like/{movieId}")
+    @GetMapping(value = "/like/{movieId}")
     public ResponseEntity<?> likeMovie(@PathVariable long movieId) {
         Movie movie = movieService.findMovieById(movieId);
         if (movie != null) {
@@ -35,7 +32,7 @@ public class MovieController {
         throw new NotFoundException("Movie not found");
     }
 
-    @PostMapping(value = "/hotmovies/{movieIndex}")
+    @GetMapping(value = "/hotmovies/{movieIndex}")
     public ResponseEntity<?> getHotMovies(@PathVariable int movieIndex) {
         if (movieIndex < movieService.getMovieNums()) {
             return new ResponseEntity<>(movieService.findHotMovies(movieIndex), HttpStatus.OK);
@@ -43,7 +40,7 @@ public class MovieController {
         throw new NotFoundException("Movie not found");
     }
 
-    @PostMapping(value = "/{cinemaId}")
+    @GetMapping(value = "/{cinemaId}")
     public ResponseEntity<?> getMovieByCinemaId(@PathVariable long cinemaId) {
         if (cinemaService.findCinemaById(cinemaId) != null) {
             return new ResponseEntity<>(movieService.findMovieByCinemaId(cinemaId), HttpStatus.OK);
@@ -51,7 +48,7 @@ public class MovieController {
         throw new NotFoundException("Cinema not found");
     }
 
-    @PostMapping(value = "/movie/{movieId}")
+    @GetMapping(value = "/movie/{movieId}")
     public ResponseEntity<?> getMovie(@PathVariable long movieId) {
         Movie movie = movieService.findMovieById(movieId);
         if (movie != null) {
