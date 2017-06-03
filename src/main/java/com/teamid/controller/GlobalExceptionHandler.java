@@ -3,7 +3,7 @@ package com.teamid.controller;
 import com.teamid.entity.exception.ForbiddenException;
 import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
-import com.teamid.entity.exception.UnanthorizedException;
+import com.teamid.entity.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UnanthorizedException.class)
+    @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public String unanthorized(UnanthorizedException e) {
+    public String unanthorized(UnauthorizedException e) {
         return e.toString();
     }
 
