@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Y_user {
+public class User {
 
     @Id
     @GeneratedValue
@@ -28,7 +28,7 @@ public class Y_user {
     @Column(nullable = false)
     private String phone;
 
-    public Y_user() {}
+    public User() {}
 
     public long getId() {
         return id;

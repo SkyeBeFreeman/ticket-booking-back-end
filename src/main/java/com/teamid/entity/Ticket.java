@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Y_ticket {
+public class Ticket {
 
     @Id
     @GeneratedValue
@@ -28,7 +28,7 @@ public class Y_ticket {
     @Column(nullable = false)
     private int posY;
 
-    public Y_ticket() {}
+    public Ticket() {}
 
     public long getId() {
         return id;

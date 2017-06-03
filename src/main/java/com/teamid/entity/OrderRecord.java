@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Y_order {
+public class OrderRecord {
 
     @Id
     @GeneratedValue
@@ -34,7 +34,7 @@ public class Y_order {
     @Column(nullable = false)
     private int status;
 
-    public Y_order() {}
+    public OrderRecord() {}
 
     public long getId() {
         return id;
