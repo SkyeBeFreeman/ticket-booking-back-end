@@ -2,6 +2,8 @@ package com.teamid.controller;
 
 import com.teamid.entity.Ticket;
 import com.teamid.entity.TicketStatus;
+import com.teamid.entity.exception.ForbiddenException;
+import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.TicketService;
 import com.teamid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +33,14 @@ public class TicketController {
     public ResponseEntity<?> buyTicket(@PathVariable long ticketId, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
         if (userService.findUserById(userId) == null) {
-            // TODO: 2017/6/3
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("User not found");
         }
         Ticket ticket = ticketService.getTicketById(ticketId);
         if (ticket == null) {
-            // TODO: 2017/6/3
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Ticket not found");
         }
         if (ticket.getStatus() == TicketStatus.SOLD.ordinal()) {
-            // TODO: 2017/6/3
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new ForbiddenException("The ticket has been sold");
         }
 
         ticketService.buyTicket(ticketId);

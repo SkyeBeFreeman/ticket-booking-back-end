@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-import java.util.List;
-
 /**
  * Created by Skye on 2017/6/3.
  */
