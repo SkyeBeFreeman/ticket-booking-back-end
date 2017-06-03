@@ -1,6 +1,7 @@
 package com.teamid.controller;
 
 import com.teamid.entity.Movie;
+import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.CinemaService;
 import com.teamid.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,12 @@ public class MovieController {
 
     @PostMapping(value = "/like/{movieId}")
     public ResponseEntity<?> likeMovie(@PathVariable long movieId) {
-        if (movieService.findMovieById(movieId) != null) {
+        Movie movie = movieService.findMovieById(movieId);
+        if (movie != null) {
             movieService.likeByMovieId(movieId);
-            return new ResponseEntity<>(movieService.findMovieById(movieId), HttpStatus.OK);
+            return new ResponseEntity<>(movie, HttpStatus.OK);
         }
-        // TODO: 2017/6/3
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new NotFoundException("Movie not found");
     }
 
     @PostMapping(value = "/hotmovies/{movieIndex}")
@@ -39,8 +40,7 @@ public class MovieController {
         if (movieIndex < movieService.getMovieNums()) {
             return new ResponseEntity<>(movieService.findHotMovies(movieIndex), HttpStatus.OK);
         }
-        // TODO: 2017/6/3
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new NotFoundException("Movie not found");
     }
 
     @PostMapping(value = "/{cinemaId}")
@@ -48,8 +48,7 @@ public class MovieController {
         if (cinemaService.findCinemaById(cinemaId) != null) {
             return new ResponseEntity<>(movieService.findMovieByCinemaId(cinemaId), HttpStatus.OK);
         }
-        // TODO: 2017/6/3
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new NotFoundException("Cinema not found");
     }
 
     @PostMapping(value = "/movie/{movieId}")
@@ -58,7 +57,6 @@ public class MovieController {
         if (movie != null) {
             return new ResponseEntity<>(movie, HttpStatus.OK);
         }
-        // TODO: 2017/6/3
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new NotFoundException("Movie not found");
     }
 }
