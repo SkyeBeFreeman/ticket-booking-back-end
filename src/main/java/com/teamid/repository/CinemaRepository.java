@@ -13,9 +13,5 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     List<Cinema> findAll(Sort sort);
 
-    Cinema findOne(Long cinemaId);
-
-    Cinema save(Cinema cinema);
-
     List<Cinema> save(List<Cinema> cinemas);
 }

@@ -20,13 +20,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "update movie m set m.likes = ?1 where m.id = ?2", nativeQuery = true)
     void modifyMovieById(long likes, long movieId);
 
-    List<Movie> findAll();
-
-    Movie findOne(Long movieId);
-
     List<Movie> findMovieByCinemaId(long cinemaId);
-
-    Movie save(Movie movie);
 
     List<Movie> save(List<Movie> movies);
 }

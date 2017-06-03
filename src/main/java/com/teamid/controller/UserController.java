@@ -1,6 +1,5 @@
 package com.teamid.controller;
 
-import com.teamid.entity.ErrorResponse;
 import com.teamid.entity.User;
 import com.teamid.entity.UserForm;
 import com.teamid.entity.UserInShort;
@@ -8,10 +7,7 @@ import com.teamid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody UserForm UserForm) {
 
         String username = UserForm.getUsername();
@@ -36,11 +32,11 @@ public class UserController {
         User user = new User(username, password, gender, phone);
         userService.add(user);
 
-        return new ResponseEntity<Object>(new UserInShort(username, gender, phone), HttpStatus.OK);
+        return new ResponseEntity<>(new UserInShort(username, gender, phone), HttpStatus.OK);
 
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody String phone, @RequestBody String password) {
 
         User user = userService.login(phone, password);
@@ -52,16 +48,16 @@ public class UserController {
         }
 
         else {
-            return new ResponseEntity<Object>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
+            return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
     }
 
-    @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
+    @GetMapping(value = "/userinfo")
     public ResponseEntity<?> userinfo(HttpSession session){
 
         long userId = (long)session.getAttribute("userId");
         User user = userService.findUserById(userId);
-        return new ResponseEntity<Object>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
+        return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
 
     }
 }

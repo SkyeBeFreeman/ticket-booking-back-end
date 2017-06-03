@@ -28,13 +28,18 @@ public class OrderRecord {
     @Column
     private long partnerTicketId;
 
-    @Column
-    private String message;
-
     @Column(nullable = false)
     private int status;
 
     public OrderRecord() {}
+
+    public OrderRecord(long customerId, long partnerId, long customerTicketId, long partnerTicketId, int status) {
+        this.customerId = customerId;
+        this.partnerId = partnerId;
+        this.customerTicketId = customerTicketId;
+        this.partnerTicketId = partnerTicketId;
+        this.status = status;
+    }
 
     public long getId() {
         return id;
@@ -74,14 +79,6 @@ public class OrderRecord {
 
     public void setPartnerTicketId(long partnerTicketId) {
         this.partnerTicketId = partnerTicketId;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public int getStatus() {
