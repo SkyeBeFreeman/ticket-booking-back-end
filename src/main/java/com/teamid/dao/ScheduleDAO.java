@@ -10,8 +10,10 @@ import java.util.Optional;
  */
 public interface ScheduleDAO {
 
-    Optional<Schedule> findScheduleByCinemaIdAndMovieId(long cinemaId, long movieId);
+    List<Schedule> findSchedulesByCinemaIdAndMovieId(long cinemaId, long movieId);
 
-    List<Schedule> findSchedulesByCinemaId(Long cinemaId);
+    Optional<Schedule> findScheduleByScheduleId(long scheduleId);
+
+    List<Schedule> findSchedulesByCinemaId(long cinemaId);
 
 }
