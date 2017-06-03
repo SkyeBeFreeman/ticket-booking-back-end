@@ -6,14 +6,10 @@ import com.teamid.entity.OrderStatus;
 import com.teamid.entity.User;
 import com.teamid.service.OrderRecordService;
 import com.teamid.service.UserService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -21,6 +17,7 @@ import java.util.List;
 /**
  * Created by 伟宸 on 2017/6/3.
  */
+@RestController
 @RequestMapping(value = "/order")
 public class OrderController {
 

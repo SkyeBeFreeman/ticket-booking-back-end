@@ -1,6 +1,5 @@
 package com.teamid.controller;
 
-import com.teamid.entity.ErrorResponse;
 import com.teamid.entity.User;
 import com.teamid.entity.UserForm;
 import com.teamid.entity.UserInShort;

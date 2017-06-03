@@ -62,8 +62,4 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         return false;
     }
 
-    @Override
-    public boolean deleteOrderRecordById(long id) {
-        return orderRecordDAO.deleteOrderRecordById(id);
-    }
 }
