@@ -19,6 +19,4 @@ public interface OrderRecordDAO {
 
     boolean updateOrderRecordWithStatus(long id, int status);
 
-    boolean deleteOrderRecordById(long id);
-
 }

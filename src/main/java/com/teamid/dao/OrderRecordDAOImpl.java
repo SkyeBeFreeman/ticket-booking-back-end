@@ -55,9 +55,4 @@ public class OrderRecordDAOImpl implements OrderRecordDAO {
         return true;
     }
 
-    @Override
-    public boolean deleteOrderRecordById(long id) {
-        orderRecordRepository.delete(id);
-        return true;
-    }
 }
