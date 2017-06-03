@@ -34,8 +34,7 @@ public class OrderController {
     UserService userService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> create(@RequestBody long customerTicketId,
-                                    @RequestBody long partnerTicketId, HttpSession session) {
+    public ResponseEntity<?> create(long customerTicketId, long partnerTicketId, HttpSession session) {
 
         if (session.getAttribute("userId") == null)
             throw new UnauthorizedException("Login first");

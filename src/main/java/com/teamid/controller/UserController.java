@@ -41,11 +41,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody String phone, @RequestBody String password, HttpSession session) {
+    public ResponseEntity<?> login(String phone, String password, HttpSession session) {
 
         User user = userService.login(phone, password);
 
-        // 登录失败
         if (user != null) {
             session.setAttribute("userId", user.getId());
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
@@ -58,6 +57,9 @@ public class UserController {
 
     @GetMapping(value = "/userinfo")
     public ResponseEntity<?> userinfo(HttpSession session){
+
+        if (session.getAttribute("userId") == null)
+            throw new UnauthorizedException("Login first");
 
         long userId = (long)session.getAttribute("userId");
         User user = userService.findUserById(userId);
