@@ -29,12 +29,12 @@ public class OrderController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody long customerTicketId,
-                                    @RequestBody long partnerTicketId, String message, HttpSession session) {
+                                    @RequestBody long partnerTicketId, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
 
         User cumtomer = userService.findUserById(userId);
 
-        OrderRecord orderRecord = new OrderRecord(cumtomer.getId(), -1, customerTicketId, partnerTicketId, message,
+        OrderRecord orderRecord = new OrderRecord(cumtomer.getId(), -1, customerTicketId, partnerTicketId,
                 OrderStatus.WAITING.ordinal());
         orderRecordService.add(orderRecord);
 
