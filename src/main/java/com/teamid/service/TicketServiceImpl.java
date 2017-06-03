@@ -1,8 +1,12 @@
 package com.teamid.service;
 
+import com.teamid.dao.TicketDAO;
+import com.teamid.entity.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by Skye on 2017/6/3.
@@ -11,4 +15,22 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class TicketServiceImpl implements TicketService {
+
+    @Autowired
+    private TicketDAO ticketDAO;
+
+    @Override
+    public void buyTicket(long ticketTd) {
+        ticketDAO.buyTicketByTicketId(ticketTd);
+    }
+
+    @Override
+    public List<Ticket> getTicketsByScheduleId(long scheduleId) {
+        return ticketDAO.findTicketsByScheduleId(scheduleId);
+    }
+
+    @Override
+    public Ticket getTicketById(long ticketId) {
+        return ticketDAO.findTicketById(ticketId);
+    }
 }

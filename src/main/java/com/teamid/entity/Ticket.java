@@ -27,6 +27,9 @@ public class Ticket {
 
     @Column(nullable = false)
     private int posY;
+    
+    @Column(nullable = false)
+    private String message;
 
     public Ticket() {}
 
@@ -68,5 +71,13 @@ public class Ticket {
 
     public void setPosY(int posY) {
         this.posY = posY;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
