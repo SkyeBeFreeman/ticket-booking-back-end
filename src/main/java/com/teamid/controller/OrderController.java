@@ -38,7 +38,7 @@ public class OrderController {
                 OrderStatus.WAITING.ordinal());
         orderRecordService.add(orderRecord);
 
-        return new ResponseEntity<Object>(new Order(orderRecord.getId(), orderRecord.getCustomerId(),
+        return new ResponseEntity<>(new Order(orderRecord.getId(), orderRecord.getCustomerId(),
                 orderRecord.getPartnerId(), orderRecord.getCustomerTicketId(), orderRecord.getPartnerTicketId()), HttpStatus.OK);
 
     }
@@ -53,7 +53,7 @@ public class OrderController {
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);
 
         orderRecord.setStatus(OrderStatus.RECEIVED.ordinal());
-        return new ResponseEntity<Object>(new Order(orderId, orderRecord.getCustomerId(), orderRecord.getPartnerId(),
+        return new ResponseEntity<>(new Order(orderId, orderRecord.getCustomerId(), orderRecord.getPartnerId(),
                 orderRecord.getCustomerTicketId(), orderRecord.getPartnerTicketId()), HttpStatus.OK);
     }
 
@@ -85,7 +85,7 @@ public class OrderController {
 
         List<OrderRecord> orderRecords = orderRecordService.findOrderRecordsByCustomer(userId);
 
-        return new ResponseEntity<Object>(orderRecords, HttpStatus.OK);
+        return new ResponseEntity<>(orderRecords, HttpStatus.OK);
     }
 
 }
