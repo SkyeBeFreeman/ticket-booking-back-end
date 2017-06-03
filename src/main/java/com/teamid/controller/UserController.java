@@ -3,6 +3,9 @@ package com.teamid.controller;
 import com.teamid.entity.User;
 import com.teamid.entity.UserForm;
 import com.teamid.entity.UserInShort;
+import com.teamid.entity.exception.NotAcceptableException;
+import com.teamid.entity.exception.NotFoundException;
+import com.teamid.entity.exception.UnanthorizedException;
 import com.teamid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,26 +33,27 @@ public class UserController {
         String phone = UserForm.getPhone();
 
         User user = new User(username, password, gender, phone);
-        userService.add(user);
-
-        return new ResponseEntity<>(new UserInShort(username, gender, phone), HttpStatus.OK);
+        if (userService.add(user))
+            return new ResponseEntity<>(new UserInShort(username, gender, phone), HttpStatus.OK);
+        else
+            throw new NotAcceptableException("Phone has been registered");
 
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody String phone, @RequestBody String password) {
+    public ResponseEntity<?> login(@RequestBody String phone, @RequestBody String password, HttpSession session) {
 
         User user = userService.login(phone, password);
 
         // 登录失败
-        if (user == null) {
-            // TODO
-            return null;
-        }
-
-        else {
+        if (user != null) {
+            session.setAttribute("userId", user.getId());
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
+        else
+            throw new UnanthorizedException("Username or password incorrect");
+
+
     }
 
     @GetMapping(value = "/userinfo")
@@ -57,7 +61,9 @@ public class UserController {
 
         long userId = (long)session.getAttribute("userId");
         User user = userService.findUserById(userId);
-        return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
-
+        if (user != null)
+            return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
+        else
+            throw new NotFoundException("User not found");
     }
 }

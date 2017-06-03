@@ -17,8 +17,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean add(User user) {
-        userRepository.save(user);
-        return true;
+        if (userRepository.findUserByPhone(user.getPhone()) == null) {
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
