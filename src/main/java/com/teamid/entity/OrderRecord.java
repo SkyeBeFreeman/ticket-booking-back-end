@@ -28,7 +28,17 @@ public class OrderRecord {
     @Column
     private long partnerTicketId;
 
+    public OrderRecord(long customerId, long partnerId, long customerTicketId, long partnerTicketId, String message, int status) {
+        this.customerId = customerId;
+        this.partnerId = partnerId;
+        this.customerTicketId = customerTicketId;
+        this.partnerTicketId = partnerTicketId;
+        this.message = message;
+        this.status = status;
+    }
+
     @Column
+
     private String message;
 
     @Column(nullable = false)
