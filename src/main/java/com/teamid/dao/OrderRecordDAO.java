@@ -1,7 +1,6 @@
 package com.teamid.dao;
 
 import com.teamid.entity.OrderRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.teamid.dao;
 
 import com.teamid.entity.User;
-import com.teamid.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**

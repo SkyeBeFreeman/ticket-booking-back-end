@@ -23,6 +23,4 @@ public interface OrderRecordService {
 
     boolean isPartner(long id, long userId);
 
-    boolean deleteOrderRecordById(long id);
-
 }

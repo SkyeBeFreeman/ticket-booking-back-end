@@ -28,6 +28,14 @@ public class OrderRecord {
     @Column
     private long partnerTicketId;
 
+    @Column
+    private String message;
+
+    @Column(nullable = false)
+    private int status;
+
+    public OrderRecord() {}
+
     public OrderRecord(long customerId, long partnerId, long customerTicketId, long partnerTicketId, String message, int status) {
         this.customerId = customerId;
         this.partnerId = partnerId;
@@ -36,15 +44,6 @@ public class OrderRecord {
         this.message = message;
         this.status = status;
     }
-
-    @Column
-
-    private String message;
-
-    @Column(nullable = false)
-    private int status;
-
-    public OrderRecord() {}
 
     public long getId() {
         return id;
