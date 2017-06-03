@@ -5,7 +5,7 @@ import com.teamid.entity.UserForm;
 import com.teamid.entity.UserInShort;
 import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
-import com.teamid.entity.exception.UnanthorizedException;
+import com.teamid.entity.exception.UnauthorizedException;
 import com.teamid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +51,7 @@ public class UserController {
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
         else
-            throw new UnanthorizedException("Username or password incorrect");
+            throw new UnauthorizedException("Username or password incorrect");
 
 
     }

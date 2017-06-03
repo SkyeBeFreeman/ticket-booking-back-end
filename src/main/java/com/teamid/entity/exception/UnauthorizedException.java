@@ -3,9 +3,9 @@ package com.teamid.entity.exception;
 /**
  * Created by Skye on 2017/6/3.
  */
-public class UnanthorizedException extends RuntimeException {
+public class UnauthorizedException extends RuntimeException {
 
-    public UnanthorizedException(String message) {
+    public UnauthorizedException(String message) {
         super(message);
     }
 
