@@ -26,9 +26,6 @@ public class Y_user {
     private boolean gender;
 
     @Column(nullable = false)
-    private String avatar;
-
-    @Column(nullable = false)
     private String phone;
 
     public Y_user() {}
@@ -63,14 +60,6 @@ public class Y_user {
 
     public void setGender(boolean gender) {
         this.gender = gender;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getPhone() {
