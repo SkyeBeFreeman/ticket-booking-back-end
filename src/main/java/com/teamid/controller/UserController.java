@@ -7,6 +7,8 @@ import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.entity.exception.UnauthorizedException;
 import com.teamid.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody UserForm UserForm) {
@@ -45,9 +49,15 @@ public class UserController {
 
         User user = userService.login(phone, password);
 
-        // 登录失败
+        if (session.isNew()) {
+            logger.info("session创建成功，session的id是：" + session.getId());
+        } else {
+            logger.info("服务器已经存在该session了，session的id是："+ session.getId());
+        }
+
         if (user != null) {
             session.setAttribute("userId", user.getId());
+            System.out.println(session.toString());
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
         else
