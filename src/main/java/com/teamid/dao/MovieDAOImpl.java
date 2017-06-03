@@ -51,11 +51,6 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     @Override
-    public List<Movie> findMovieByCinemaId(long cinemaId) {
-        return movieRepository.findMovieByCinemaId(cinemaId);
-    }
-
-    @Override
     public Movie findMovieById(long movieId) {
         return movieRepository.findOne(movieId);
     }
