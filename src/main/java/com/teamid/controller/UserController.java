@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody String phone, @RequestBody String password, HttpSession session) {
+    public ResponseEntity<?> login(String phone, String password, HttpSession session) {
 
         User user = userService.login(phone, password);
 
