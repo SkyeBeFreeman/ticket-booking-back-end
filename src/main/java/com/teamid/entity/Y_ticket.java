@@ -10,25 +10,25 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Ticket {
+public class Y_ticket {
 
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false)
-    private long schedule_id;
+    private long scheduleId;
 
     @Column(nullable = false)
     private int status;
 
     @Column(nullable = false)
-    private int pos_x;
+    private int posX;
 
     @Column(nullable = false)
-    private int pos_y;
+    private int posY;
 
-    public Ticket() {}
+    public Y_ticket() {}
 
     public long getId() {
         return id;
@@ -38,12 +38,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public long getSchedule_id() {
-        return schedule_id;
+    public long getScheduleId() {
+        return scheduleId;
     }
 
-    public void setSchedule_id(long schedule_id) {
-        this.schedule_id = schedule_id;
+    public void setScheduleId(long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public int getStatus() {
@@ -54,19 +54,19 @@ public class Ticket {
         this.status = status;
     }
 
-    public int getPos_x() {
-        return pos_x;
+    public int getPosX() {
+        return posX;
     }
 
-    public void setPos_x(int pos_x) {
-        this.pos_x = pos_x;
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
-    public int getPos_y() {
-        return pos_y;
+    public int getPosY() {
+        return posY;
     }
 
-    public void setPos_y(int pos_y) {
-        this.pos_y = pos_y;
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 }

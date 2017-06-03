@@ -10,17 +10,17 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Movie {
+public class Y_movie {
 
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false)
-    private String name_cn;
+    private String nameCn;
 
     @Column(nullable = false)
-    private String name_en;
+    private String nameEn;
 
     @Column(nullable = false)
     private int type;
@@ -32,7 +32,7 @@ public class Movie {
     private String duration;
 
     @Column(nullable = false)
-    private String release_time;
+    private String releaseTime;
 
     @Column(nullable = false)
     private String introduction;
@@ -44,9 +44,9 @@ public class Movie {
     private String post;
 
     @Column(nullable = false)
-    private long like;
+    private long likes;
 
-    public Movie() {}
+    public Y_movie() {}
 
     public long getId() {
         return id;
@@ -56,20 +56,20 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName_cn() {
-        return name_cn;
+    public String getNameCn() {
+        return nameCn;
     }
 
-    public void setName_cn(String name_cn) {
-        this.name_cn = name_cn;
+    public void setNameCn(String nameCn) {
+        this.nameCn = nameCn;
     }
 
-    public String getName_en() {
-        return name_en;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setName_en(String name_en) {
-        this.name_en = name_en;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public int getType() {
@@ -96,12 +96,12 @@ public class Movie {
         this.duration = duration;
     }
 
-    public String getRelease_time() {
-        return release_time;
+    public String getReleaseTime() {
+        return releaseTime;
     }
 
-    public void setRelease_time(String release_time) {
-        this.release_time = release_time;
+    public void setReleaseTime(String releaseTime) {
+        this.releaseTime = releaseTime;
     }
 
     public String getIntroduction() {
@@ -129,10 +129,10 @@ public class Movie {
     }
 
     public long getLike() {
-        return like;
+        return likes;
     }
 
-    public void setLike(long like) {
-        this.like = like;
+    public void setLike(long likes) {
+        this.likes = likes;
     }
 }

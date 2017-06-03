@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Cinema {
+public class Y_cinema {
 
     @Id
     @GeneratedValue
@@ -25,7 +25,7 @@ public class Cinema {
     @Column(nullable = false)
     private float rank;
 
-    public Cinema() {}
+    public Y_cinema() {}
 
     public long getId() {
         return id;

@@ -10,23 +10,23 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Order {
+public class Y_order {
 
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false)
-    private long customer_id;
+    private long customerId;
 
     @Column
-    private long partner_id;
+    private long partnerId;
 
     @Column(nullable = false)
-    private long customer_ticket_id;
+    private long customerTicketId;
 
     @Column
-    private long partner_ticket_id;
+    private long partnerTicketId;
 
     @Column
     private String message;
@@ -34,7 +34,7 @@ public class Order {
     @Column(nullable = false)
     private int status;
 
-    public Order() {}
+    public Y_order() {}
 
     public long getId() {
         return id;
@@ -44,36 +44,36 @@ public class Order {
         this.id = id;
     }
 
-    public long getCustomer_id() {
-        return customer_id;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
-    public long getPartner_id() {
-        return partner_id;
+    public long getPartnerId() {
+        return partnerId;
     }
 
-    public void setPartner_id(long partner_id) {
-        this.partner_id = partner_id;
+    public void setPartnerId(long partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public long getCustomer_ticket_id() {
-        return customer_ticket_id;
+    public long getCustomerTicketId() {
+        return customerTicketId;
     }
 
-    public void setCustomer_ticket_id(long customer_ticket_id) {
-        this.customer_ticket_id = customer_ticket_id;
+    public void setCustomerTicketId(long customerTicketId) {
+        this.customerTicketId = customerTicketId;
     }
 
-    public long getPartner_ticket_id() {
-        return partner_ticket_id;
+    public long getPartnerTicketId() {
+        return partnerTicketId;
     }
 
-    public void setPartner_ticket_id(long partner_ticket_id) {
-        this.partner_ticket_id = partner_ticket_id;
+    public void setPartnerTicketId(long partnerTicketId) {
+        this.partnerTicketId = partnerTicketId;
     }
 
     public String getMessage() {
