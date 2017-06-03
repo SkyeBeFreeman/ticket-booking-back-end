@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+import java.util.List;
+
 /**
  * Created by Skye on 2017/6/3.
  */
@@ -17,4 +19,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     void modifyTicketByTicketId(int status, long ticketTd);
 
     List<Ticket> findTicketsByScheduleId(long scheduleId);
+
 }
