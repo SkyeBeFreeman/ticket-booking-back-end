@@ -32,9 +32,9 @@ public class OrderController {
                                     @RequestBody long partnerTicketId, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
 
-        User cumtomer = userService.findUserById(userId);
+        User customer = userService.findUserById(userId);
 
-        OrderRecord orderRecord = new OrderRecord(cumtomer.getId(), -1, customerTicketId, partnerTicketId,
+        OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
                 OrderStatus.WAITING.ordinal());
         orderRecordService.add(orderRecord);
 
