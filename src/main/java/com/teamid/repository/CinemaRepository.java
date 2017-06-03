@@ -1,7 +1,7 @@
 package com.teamid.repository;
 
 import com.teamid.entity.Cinema;
-import com.teamid.entity.Movie;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,10 +11,9 @@ import java.util.List;
  */
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
-    List<Cinema> findAll();
+    List<Cinema> findAll(Sort sort);
 
     Cinema findOne(Long cinemaId);
-
 
     Cinema save(Cinema cinema);
 

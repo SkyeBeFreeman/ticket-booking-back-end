@@ -5,6 +5,7 @@ import com.teamid.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,8 @@ import java.util.List;
 
 @Repository
 public class MovieDAOImpl implements MovieDAO {
+
+    private static final int HOT_MOVIES_NUM = 10;
 
     @Autowired
     private MovieRepository movieRepository;
@@ -26,22 +29,39 @@ public class MovieDAOImpl implements MovieDAO {
     @Override
     public List<Movie> findHotMovies(int movieIndex) {
         List<Movie> movies = movieRepository.findAll();
+        movies.sort((Movie movie1, Movie movie2) ->
+                (int)((movie2.getRank() + movie2.getLike()) - (movie1.getRank() + movie1.getLike()))
+        );
 
-        return null;
+        List<Movie> res = new ArrayList<>();
+        if (movieIndex + HOT_MOVIES_NUM <= movies.size()) {
+            for (int i = 0; i < HOT_MOVIES_NUM; i++) {
+                res.add(movies.get(movieIndex + i));
+            }
+            return res;
+        }
+        int num = HOT_MOVIES_NUM;
+        for (int i = movieIndex; i < movies.size(); i++, num--) {
+            res.add(movies.get(i));
+        }
+        for (int i = 0; i < num; i++) {
+            res.add(movies.get(i));
+        }
+        return res;
     }
 
     @Override
     public List<Movie> findMovieByCinemaId(long cinemaId) {
-        return null;
+        return movieRepository.findMovieByCinemaId(cinemaId);
     }
 
     @Override
     public Movie findMovieById(long movieId) {
-        return null;
+        return movieRepository.findOne(movieId);
     }
 
     @Override
     public int getMovieNums() {
-        return 0;
+        return movieRepository.findAll().size();
     }
 }
