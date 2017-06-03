@@ -25,10 +25,17 @@ public class User {
     @Column(nullable = false)
     private boolean gender;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String phone;
 
     public User() {}
+
+    public User(String username, String password, boolean gender, String phone) {
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.phone = phone;
+    }
 
     public long getId() {
         return id;
@@ -54,7 +61,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean isGender() {
+    public boolean getGender() {
         return gender;
     }
 
