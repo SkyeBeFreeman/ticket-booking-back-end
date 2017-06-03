@@ -27,7 +27,7 @@ public class OrderController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public ResponseEntity<?> create(@RequestBody long customerTicketId,
                                     @RequestBody long partnerTicketId, String message, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
@@ -43,7 +43,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "/participate/{orderId}", method = RequestMethod.GET)
+    @GetMapping(value = "/participate/{orderId}")
     public ResponseEntity<?> participate(@PathVariable long orderId, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
@@ -57,7 +57,7 @@ public class OrderController {
                 orderRecord.getCustomerTicketId(), orderRecord.getPartnerTicketId()), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/cancel/{orderId}", method = RequestMethod.GET)
+    @GetMapping(value = "/cancel/{orderId}")
     public HttpStatus cancel(@PathVariable long orderId, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
@@ -79,7 +79,7 @@ public class OrderController {
         return HttpStatus.NO_CONTENT;
     }
 
-    @RequestMapping(value = "/allorder", method = RequestMethod.GET)
+    @GetMapping(value = "/allorder")
     public ResponseEntity<?> allorder(HttpSession session) {
         long userId = (long) session.getAttribute("userId");
 
