@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Y_schedule {
+public class Schedule {
 
     @Id
     @GeneratedValue
@@ -34,7 +34,7 @@ public class Y_schedule {
     @Column(nullable = false)
     private float price;
 
-    public Y_schedule() {}
+    public Schedule() {}
 
     public long getId() {
         return id;
