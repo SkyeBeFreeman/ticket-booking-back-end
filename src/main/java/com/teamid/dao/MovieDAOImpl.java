@@ -19,11 +19,14 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public void likeByMovieId(long movieId) {
-
+        Movie movie = movieRepository.findOne(movieId);
+        movieRepository.modifyMovieById(movie.getLike() + 1, movieId);
     }
 
     @Override
     public List<Movie> findHotMovies(int movieIndex) {
+        List<Movie> movies = movieRepository.findAll();
+
         return null;
     }
 
