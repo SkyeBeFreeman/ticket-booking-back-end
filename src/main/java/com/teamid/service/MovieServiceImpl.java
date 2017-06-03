@@ -1,11 +1,14 @@
 package com.teamid.service;
 
 import com.teamid.dao.MovieDAO;
+import com.teamid.dao.ScheduleDAO;
 import com.teamid.entity.Movie;
+import com.teamid.entity.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +22,9 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieDAO movieDAO;
 
+    @Autowired
+    private ScheduleDAO scheduleDAO;
+
     @Override
     public void likeByMovieId(long movieId) {
         movieDAO.likeByMovieId(movieId);
@@ -31,7 +37,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> findMovieByCinemaId(long cinemaId) {
-        return movieDAO.findMovieByCinemaId(cinemaId);
+        List<Schedule> schedules  = scheduleDAO.findSchedulesByCinemaId(cinemaId);
+        List<Movie> movies = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            movies.add(movieDAO.findMovieById(schedule.getMovieId()));
+        }
+        return movies;
     }
 
     @Override

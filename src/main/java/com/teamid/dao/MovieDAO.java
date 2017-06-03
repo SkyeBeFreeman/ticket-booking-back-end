@@ -13,8 +13,6 @@ public interface MovieDAO {
 
     List<Movie> findHotMovies(int movieIndex);
 
-    List<Movie> findMovieByCinemaId(long cinemaId);
-
     Movie findMovieById(long movieId);
 
     int getMovieNums();
