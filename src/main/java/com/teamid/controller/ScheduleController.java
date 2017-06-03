@@ -3,6 +3,7 @@ package com.teamid.controller;
 import com.teamid.entity.SchedeleTotal;
 import com.teamid.entity.Schedule;
 import com.teamid.entity.Ticket;
+import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.ScheduleService;
 import com.teamid.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,23 @@ public class ScheduleController {
 
     @PostMapping(value = "/scheduleinfo")
     public ResponseEntity<?> getScheduleByCinemaIdAndMovieId(long cinemaId, long movieId) {
-        return new ResponseEntity<>(scheduleService.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId), HttpStatus.OK);
+        List<Schedule> scheduleList = scheduleService.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
+        if (scheduleList == null || scheduleList.isEmpty()) {
+            throw new NotFoundException("Schedule Not Found");
+        }
+        return new ResponseEntity<>(scheduleList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{scheduleId}")
     public ResponseEntity<?> getScheduleByScheduleId(@PathVariable long scheduleId) {
         Optional<Schedule> temp = scheduleService.findScheduleByScheduleId(scheduleId);
+        if (!temp.isPresent()) {
+            throw new NotFoundException("Schedule Not Found");
+        }
         List<Ticket> ticketList = ticketService.getTicketsByScheduleId(scheduleId);
+        if (ticketList == null || ticketList.isEmpty()) {
+            throw new NotFoundException("Ticket Not Found");
+        }
         SchedeleTotal responseObject = new SchedeleTotal(temp.get(), ticketList);
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
