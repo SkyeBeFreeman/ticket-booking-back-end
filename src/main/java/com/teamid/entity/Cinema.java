@@ -27,6 +27,12 @@ public class Cinema {
 
     public Cinema() {}
 
+    public Cinema(String name, String address, float rank) {
+        this.name = name;
+        this.address = address;
+        this.rank = rank;
+    }
+
     public long getId() {
         return id;
     }
