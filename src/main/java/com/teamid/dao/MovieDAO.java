@@ -11,7 +11,7 @@ public interface MovieDAO {
 
     void likeMovieById(long movieId);
 
-    List<Movie> findHotMovies(int movieIndex);
+    List<Movie> findAllMovies();
 
     Movie findMovieById(long movieId);
 

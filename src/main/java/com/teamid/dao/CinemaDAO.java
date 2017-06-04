@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface CinemaDAO {
 
-    List<Cinema> findHotCinemas();
+    List<Cinema> findAllCinemas();
 
     Cinema findCinemaById(long cinemaId);
 }
