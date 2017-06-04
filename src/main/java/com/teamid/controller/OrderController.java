@@ -48,19 +48,17 @@ public class OrderController {
 
         if (ticketService.getTicketById(customerTicketId) == null
                 || ticketService.getTicketById(partnerTicketId) == null)
-            throw new NotFoundException("Ticket id not found");
+            throw new NotFoundException("无效的电影票");
 
 
         User customer = userService.findUserById(userId);
-
         if (customer == null)
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("未注册的用户");
 
         if (TicketUtils.checkTicketExpired(customerTicketId))
-            throw new NotAcceptableException("Ticket expires");
+            throw new NotAcceptableException("无效的电影票");
         if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
-            throw new NotAcceptableException("Partner ticket expires");
-
+            throw new NotAcceptableException("无效的电影票");
 
         OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
                 OrderStatus.WAITING.ordinal());
@@ -79,11 +77,11 @@ public class OrderController {
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
 
         if (orderRecord == null)
-            throw new NotFoundException("Order not found");
+            throw new NotFoundException("无效的订单");
 
         long partnerTicketId = orderRecord.getPartnerTicketId();
         if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
-            throw new NotAcceptableException("Partner ticket expires");
+            throw new NotAcceptableException("无效的电影票");
 
         orderRecord.setPartnerId(userId);
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);
@@ -100,11 +98,11 @@ public class OrderController {
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
 
         if (orderRecord == null)
-            throw new NotFoundException("Order not found");
+            throw new NotFoundException("无效的订单");
 
         long ticketId = orderRecord.getPartnerTicketId();
         if (TicketUtils.checkTicketExpired(ticketId))
-            throw new NotAcceptableException("Ticket expires");
+            throw new NotAcceptableException("无效的电影票");
 
         if (orderRecordService.isCustomer(orderId, userId)) {
             orderRecord.setStatus(OrderStatus.CANCELLED.ordinal());
@@ -117,7 +115,7 @@ public class OrderController {
             orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.WAITING.ordinal());
         }
         else {
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("不是该订单的用户");
         }
 
         return HttpStatus.NO_CONTENT;
@@ -148,8 +146,6 @@ public class OrderController {
             Movie movie = movieService.findMovieById(movieId);
             long cinemaId = schedule.getCinemaId();
             Cinema cinema = cinemaService.findCinemaById(cinemaId);
-
-
 
             String movieNameCn = movie.getNameCn();
             String movieNameEn = movie.getNameEn();

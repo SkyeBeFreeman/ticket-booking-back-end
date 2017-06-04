@@ -10,7 +10,7 @@ public class LoginUtils {
 
     public static long getLoginUserId(HttpSession session) {
         if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
+            throw new UnauthorizedException("请先登录");
         return (long)session.getAttribute("userId");
     }
 
