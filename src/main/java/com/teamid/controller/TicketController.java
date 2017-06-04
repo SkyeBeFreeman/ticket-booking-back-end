@@ -31,18 +31,18 @@ public class TicketController {
     public ResponseEntity<?> buyTicket(@PathVariable long ticketId, HttpSession session) {
         Object obj = session.getAttribute("userId");
         if (obj == null) {
-            throw new UnauthorizedException("Please login first");
+            throw new UnauthorizedException("请先登录");
         }
         long userId = (long) obj;
         if (userService.findUserById(userId) == null) {
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("账号不存在");
         }
         Ticket ticket = ticketService.getTicketById(ticketId);
         if (ticket == null) {
-            throw new NotFoundException("Ticket not found");
+            throw new NotFoundException("该电影票不存在");
         }
         if (ticket.getStatus() == TicketStatus.SOLD.ordinal()) {
-            throw new ForbiddenException("The ticket has been sold");
+            throw new ForbiddenException("这张票已经被买走啦");
         }
 
         ticketService.buyTicket(ticketId);
