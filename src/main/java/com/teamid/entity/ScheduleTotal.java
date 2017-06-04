@@ -1,5 +1,6 @@
 package com.teamid.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class ScheduleTotal {
 
     private int hall;
 
-    private String startTime;
+    private LocalDateTime startTime;
 
     private String endTime;
 
