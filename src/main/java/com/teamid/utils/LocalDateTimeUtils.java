@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class LocalDateTimeUtils {
 
+    // sourceTime - targetTime (minutes)
     public static long getDifference(LocalDateTime sourceTime, LocalDateTime targetTime) {
         return targetTime.until(sourceTime, ChronoUnit.MINUTES);
     }

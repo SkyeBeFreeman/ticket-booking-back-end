@@ -38,6 +38,15 @@ public class Schedule {
 
     public Schedule() {}
 
+    public Schedule(long cinemaId, long movieId, int hall, LocalDateTime startTime, String endTime, float price) {
+        this.cinemaId = cinemaId;
+        this.movieId = movieId;
+        this.hall = hall;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.price = price;
+    }
+
     public long getId() {
         return id;
     }
