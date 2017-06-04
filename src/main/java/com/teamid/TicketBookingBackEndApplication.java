@@ -1,8 +1,6 @@
 package com.teamid;
 
-import com.teamid.entity.Schedule;
 import com.teamid.repository.ScheduleRepository;
-import com.teamid.utils.LocalDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -10,8 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 @EnableRedisHttpSession

@@ -33,6 +33,14 @@ public class Ticket {
 
     public Ticket() {}
 
+    public Ticket(long scheduleId, int status, int posX, int posY, String message) {
+        this.scheduleId = scheduleId;
+        this.status = status;
+        this.posX = posX;
+        this.posY = posY;
+        this.message = message;
+    }
+
     public long getId() {
         return id;
     }
