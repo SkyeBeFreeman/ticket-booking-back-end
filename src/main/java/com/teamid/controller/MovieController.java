@@ -39,7 +39,7 @@ public class MovieController {
         throw new NotFoundException("Movie not found");
     }
 
-    @GetMapping(value = "/{cinemaId}")
+    @GetMapping(value = "/cinema/{cinemaId}")
     public ResponseEntity<?> getMoviesByCinemaId(@PathVariable long cinemaId) {
         if (cinemaService.findCinemaById(cinemaId) != null) {
             return new ResponseEntity<>(movieService.findMoviesByCinemaId(cinemaId), HttpStatus.OK);
@@ -47,7 +47,7 @@ public class MovieController {
         throw new NotFoundException("Cinema not found");
     }
 
-    @GetMapping(value = "/movie/{movieId}")
+    @GetMapping(value = "/{movieId}")
     public ResponseEntity<?> getMovie(@PathVariable long movieId) {
         Movie movie = movieService.findMovieById(movieId);
         if (movie != null) {
