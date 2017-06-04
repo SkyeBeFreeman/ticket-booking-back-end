@@ -14,7 +14,7 @@ public interface MovieService {
 
     List<Movie> findHotMovies(int movieIndex);
 
-    List<Movie> findMovieByCinemaId(long cinemaId);
+    List<Movie> findMoviesByCinemaId(long cinemaId);
 
     Movie findMovieById(long movieId);
 

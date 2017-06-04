@@ -36,7 +36,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findMovieByCinemaId(long cinemaId) {
+    public List<Movie> findMoviesByCinemaId(long cinemaId) {
         List<Schedule> schedules  = scheduleDAO.findSchedulesByCinemaId(cinemaId);
         List<Movie> movies = new ArrayList<>();
         for (Schedule schedule : schedules) {
