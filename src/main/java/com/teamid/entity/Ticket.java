@@ -28,17 +28,16 @@ public class Ticket {
     @Column(nullable = false)
     private int posY;
     
-    @Column(nullable = false)
+    @Column
     private String message;
 
     public Ticket() {}
 
-    public Ticket(long scheduleId, int status, int posX, int posY, String message) {
+    public Ticket(long scheduleId, int posX, int posY) {
         this.scheduleId = scheduleId;
-        this.status = status;
+        this.status = TicketStatus.NOT_SOLD_OUT.ordinal();
         this.posX = posX;
         this.posY = posY;
-        this.message = message;
     }
 
     public long getId() {
