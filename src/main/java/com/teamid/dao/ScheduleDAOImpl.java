@@ -19,18 +19,23 @@ public class ScheduleDAOImpl implements ScheduleDAO {
     private ScheduleRepository scheduleRepository;
 
     @Override
-    public List<Schedule> findSchedulesByCinemaIdAndMovieId(long cinemaId, long movieId) {
-        return scheduleRepository.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
-    }
-
-    @Override
     public Optional<Schedule> findScheduleByScheduleId(long scheduleId) {
         return Optional.ofNullable(scheduleRepository.findOne(scheduleId));
     }
 
     @Override
+    public List<Schedule> findSchedulesByCinemaIdAndMovieId(long cinemaId, long movieId) {
+        return scheduleRepository.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
+    }
+
+    @Override
     public List<Schedule> findSchedulesByCinemaId(long cinemaId) {
         return scheduleRepository.findSchedulesByCinemaId(cinemaId);
+    }
+
+    @Override
+    public List<Schedule> findSchedulesByMovieId(long movieId) {
+        return scheduleRepository.findSchedulesByMovieId(movieId);
     }
 
 
