@@ -245,6 +245,10 @@ paths:
           description: 用户不存在/电影票不存在
           schema:
             type: string
+        406:
+          description: 电影票已过期
+          schema:
+            type: string
   
   /order/participate/{orderId}:
     get: 
@@ -259,12 +263,12 @@ paths:
           description: 申请创建成功
           schema:
             $ref: "#/definitions/Order"
-        403:
-          description: 申请创建失败(订单已超时)
-          schema:
-            type: string
         404:
           description: 订单不存在/用户不存在
+          schema:
+            type: string
+        406:
+          description: 电影票已过期
           schema:
             type: string
 
@@ -279,12 +283,12 @@ paths:
       responses:
         204:
           description: 取消成功
-        401:
-          description: 取消失败(该用户不是订单参与者)
-          schema:
-            type: string
         404:
           description: 订单不存在/用户不存在
+          schema:
+            type: string
+        406:
+          description: 电影票已过期
           schema:
             type: string
 
