@@ -24,10 +24,9 @@ public class MovieController {
 
     @GetMapping(value = "/like/{movieId}")
     public ResponseEntity<?> likeMovie(@PathVariable long movieId) {
-        Movie movie = movieService.findMovieById(movieId);
-        if (movie != null) {
+        if (movieService.findMovieById(movieId) != null) {
             movieService.likeByMovieId(movieId);
-            return new ResponseEntity<>(movie, HttpStatus.OK);
+            return new ResponseEntity<>(movieService.findMovieById(movieId), HttpStatus.OK);
         }
         throw new NotFoundException("Movie not found");
     }
@@ -41,9 +40,9 @@ public class MovieController {
     }
 
     @GetMapping(value = "/{cinemaId}")
-    public ResponseEntity<?> getMovieByCinemaId(@PathVariable long cinemaId) {
+    public ResponseEntity<?> getMoviesByCinemaId(@PathVariable long cinemaId) {
         if (cinemaService.findCinemaById(cinemaId) != null) {
-            return new ResponseEntity<>(movieService.findMovieByCinemaId(cinemaId), HttpStatus.OK);
+            return new ResponseEntity<>(movieService.findMoviesByCinemaId(cinemaId), HttpStatus.OK);
         }
         throw new NotFoundException("Cinema not found");
     }
