@@ -38,13 +38,13 @@ public class UserController {
         String phone = userForm.getPhone();
 
         if (username == null || password == null || phone == null)
-            throw new NotAcceptableException("Register format incorrect");
+            throw new NotAcceptableException("注册格式出错");
 
         User user = new User(username, password, gender, phone);
         if (userService.add(user))
             return new ResponseEntity<>(new UserInShort(username, gender, phone), HttpStatus.OK);
         else
-            throw new NotAcceptableException("Phone has been registered");
+            throw new NotAcceptableException("该手机号已被注册");
 
     }
 
@@ -64,7 +64,7 @@ public class UserController {
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         }
         else
-            throw new UnauthorizedException("Username or password incorrect");
+            throw new UnauthorizedException("用户名或密码错误");
 
 
     }
@@ -78,6 +78,6 @@ public class UserController {
         if (user != null)
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         else
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("未注册的用户");
     }
 }
