@@ -15,8 +15,6 @@ import java.util.List;
 @Repository
 public class MovieDAOImpl implements MovieDAO {
 
-    private static final int HOT_MOVIES_NUM = 10;
-
     @Autowired
     private MovieRepository movieRepository;
 
@@ -27,27 +25,8 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     @Override
-    public List<Movie> findHotMovies(int movieIndex) {
-        List<Movie> movies = movieRepository.findAll();
-        movies.sort((Movie movie1, Movie movie2) ->
-                (int)((movie2.getRank() + movie2.getLike()) - (movie1.getRank() + movie1.getLike()))
-        );
-
-        List<Movie> res = new ArrayList<>();
-        if (movieIndex + HOT_MOVIES_NUM <= movies.size()) {
-            for (int i = 0; i < HOT_MOVIES_NUM; i++) {
-                res.add(movies.get(movieIndex + i));
-            }
-            return res;
-        }
-        int num = HOT_MOVIES_NUM;
-        for (int i = movieIndex; i < movies.size(); i++, num--) {
-            res.add(movies.get(i));
-        }
-        for (int i = 0; i < num; i++) {
-            res.add(movies.get(i));
-        }
-        return res;
+    public List<Movie> findAllMovies() {
+        return movieRepository.findAll();
     }
 
     @Override

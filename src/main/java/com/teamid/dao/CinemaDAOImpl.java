@@ -16,19 +16,12 @@ import java.util.List;
 @Repository
 public class CinemaDAOImpl implements CinemaDAO {
 
-    private static final int HOT_CINEMAS_NUM = 10;
-
     @Autowired
     private CinemaRepository cinemaRepository;
 
     @Override
-    public List<Cinema> findHotCinemas() {
-        List<Cinema> cinemas = cinemaRepository.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "rank")));
-        List<Cinema> res = new ArrayList<>();
-        for (int i = 0; i < HOT_CINEMAS_NUM; i++) {
-            res.add(cinemas.get(i));
-        }
-        return res;
+    public List<Cinema> findAllCinemas() {
+        return cinemaRepository.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "rank")));
     }
 
     @Override
