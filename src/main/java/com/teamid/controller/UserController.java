@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/userinfo")
-    public ResponseEntity<?> userinfo(HttpSession session){
+    public ResponseEntity<?> userinfo(HttpSession session) {
 
         long userId = LoginUtils.getLoginUserId(session);
         User user = userService.findUserById(userId);
@@ -79,5 +79,13 @@ public class UserController {
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         else
             throw new NotFoundException("未注册的用户");
+    }
+
+    @GetMapping(value = "/logout")
+    public HttpStatus logout(HttpSession session) {
+
+        session.removeAttribute("userId");
+        return HttpStatus.NO_CONTENT;
+
     }
 }
