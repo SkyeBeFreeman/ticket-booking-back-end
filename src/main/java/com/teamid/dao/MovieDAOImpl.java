@@ -21,9 +21,9 @@ public class MovieDAOImpl implements MovieDAO {
     private MovieRepository movieRepository;
 
     @Override
-    public void likeByMovieId(long movieId) {
+    public void likeMovieById(long movieId) {
         Movie movie = movieRepository.findOne(movieId);
-        movieRepository.modifyMovieById(movie.getLike() + 1, movieId);
+        movieRepository.modifyMovieLikesById(movie.getLike() + 1, movieId);
     }
 
     @Override

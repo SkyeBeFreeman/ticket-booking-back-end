@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface TicketDAO {
 
-    void buyTicketByTicketId(long ticketTd);
+    void modifyTicketStatusById(long ticketTd, int status);
 
     List<Ticket> findTicketsByScheduleId(long scheduleId);
 

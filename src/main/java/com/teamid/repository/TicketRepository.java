@@ -14,7 +14,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Modifying
     @Query(value = "update ticket t set t.status = ?1 where t.id = ?2", nativeQuery = true)
-    void modifyTicketByTicketId(int status, long ticketTd);
+    void modifyTicketStatusById(int status, long ticketTd);
 
     List<Ticket> findTicketsByScheduleId(long scheduleId);
 

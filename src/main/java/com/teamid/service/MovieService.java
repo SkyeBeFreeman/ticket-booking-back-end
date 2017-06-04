@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MovieService {
 
-    void likeByMovieId(long movieId);
+    void likeMovieById(long movieId);
 
     List<Movie> findHotMovies(int movieIndex);
 
