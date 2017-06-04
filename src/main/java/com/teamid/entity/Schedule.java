@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
+
 
 /**
  * Created by Skye on 2017/6/2.
@@ -26,7 +28,7 @@ public class Schedule {
     private int hall;
 
     @Column(nullable = false)
-    private String startTime;
+    private LocalDateTime startTime;
 
     @Column(nullable = false)
     private String endTime;
@@ -68,11 +70,11 @@ public class Schedule {
         this.hall = hall;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
