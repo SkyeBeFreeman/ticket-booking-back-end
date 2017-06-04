@@ -6,6 +6,8 @@ import com.teamid.service.ScheduleService;
 import com.teamid.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by 伟宸 on 2017/6/4.
  */
@@ -22,9 +24,8 @@ public class TicketUtils {
         Ticket ticket = ticketService.getTicketById(ticketId);
         long scheduleId = ticket.getScheduleId();
         Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
-        // TODO
-
-        return false;
+        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+        return gap <= 60;
 
     }
 
@@ -33,9 +34,9 @@ public class TicketUtils {
         Ticket ticket = ticketService.getTicketById(ticketId);
         long scheduleId = ticket.getScheduleId();
         Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
-        //TODO
+        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
 
-        return false;
+        return gap <= 0;
 
     }
 
