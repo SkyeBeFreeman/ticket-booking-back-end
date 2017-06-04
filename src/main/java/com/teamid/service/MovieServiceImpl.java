@@ -47,21 +47,7 @@ public class MovieServiceImpl implements MovieService {
                 (int)((movie2.getRank() + movie2.getLike()) - (movie1.getRank() + movie1.getLike()))
         );
 
-        List<Movie> res = new ArrayList<>();
-        if (movieIndex + HOT_MOVIES_NUM <= movies.size()) {
-            for (int i = 0; i < HOT_MOVIES_NUM; i++) {
-                res.add(movies.get(movieIndex + i));
-            }
-            return res;
-        }
-        int num = HOT_MOVIES_NUM;
-        for (int i = movieIndex; i < movies.size(); i++, num--) {
-            res.add(movies.get(i));
-        }
-        for (int i = 0; i < num; i++) {
-            res.add(movies.get(i));
-        }
-        return res;
+        return movies.stream().skip(movieIndex).limit(HOT_MOVIES_NUM).collect(Collectors.toList());
     }
 
     @Override
@@ -69,7 +55,10 @@ public class MovieServiceImpl implements MovieService {
         List<Schedule> schedules  = scheduleDAO.findSchedulesByCinemaId(cinemaId);
         List<Movie> movies = new ArrayList<>();
         for (Schedule schedule : schedules) {
-            movies.add(movieDAO.findMovieById(schedule.getMovieId()));
+            Movie movie = movieDAO.findMovieById(schedule.getMovieId());
+            if (!movies.contains(movie)) {
+                movies.add(movie);
+            }
         }
         return movies;
     }
