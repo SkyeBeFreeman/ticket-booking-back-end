@@ -30,12 +30,15 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> register(@RequestBody UserForm UserForm) {
+    public ResponseEntity<?> register(@RequestBody UserForm userForm) {
 
-        String username = UserForm.getUsername();
-        String password = UserForm.getPassword();
-        boolean gender = UserForm.getGender();
-        String phone = UserForm.getPhone();
+        String username = userForm.getUsername();
+        String password = userForm.getPassword();
+        boolean gender = userForm.getGender();
+        String phone = userForm.getPhone();
+
+        if (username == null || password == null || phone == null)
+            throw new NotAcceptableException("Register format incorrect");
 
         User user = new User(username, password, gender, phone);
         if (userService.add(user))

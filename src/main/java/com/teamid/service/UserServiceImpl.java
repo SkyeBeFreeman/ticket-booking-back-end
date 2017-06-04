@@ -32,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String phone, String password) {
         User user = userDAO.findUserByPhone(phone);
+        if (user == null) {
+            return null;
+        }
         if(user.getPassword().equals(password))
             return user;
         return null;
