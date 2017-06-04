@@ -3,9 +3,7 @@ package com.teamid.controller;
 import com.teamid.entity.*;
 import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
-import com.teamid.service.OrderRecordService;
-import com.teamid.service.TicketService;
-import com.teamid.service.UserService;
+import com.teamid.service.*;
 import com.teamid.utils.LoginUtils;
 import com.teamid.utils.TicketUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +31,15 @@ public class OrderController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ScheduleService scheduleService;
+
+    @Autowired
+    MovieService movieService;
+
+    @Autowired
+    CinemaService cinemaService;
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> create(long customerTicketId, long partnerTicketId, HttpSession session) {
@@ -118,10 +127,51 @@ public class OrderController {
     public ResponseEntity<?> allorder(HttpSession session) {
 
         long userId = LoginUtils.getLoginUserId(session);
+        List<OrderDetail> orderDetails = new ArrayList<>();
 
         List<OrderRecord> orderRecords = orderRecordService.findOrderRecordsByCustomer(userId);
 
-        return new ResponseEntity<>(orderRecords, HttpStatus.OK);
+        for (OrderRecord orderRecord : orderRecords) {
+            long orderId = orderRecord.getId();
+            long customerId = orderRecord.getCustomerId();
+            long partnerId = orderRecord.getPartnerId();
+            long customerTicketId = orderRecord.getCustomerTicketId();
+            long partnerTicketId = orderRecord.getPartnerTicketId();
+
+            int orderStatus = orderRecord.getStatus();
+
+            User parner = userService.findUserById(userId);
+            Ticket ticket = ticketService.getTicketById(customerTicketId);
+            long scheduleId = ticket.getScheduleId();
+            Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
+            long movieId = schedule.getMovieId();
+            Movie movie = movieService.findMovieById(movieId);
+            long cinemaId = schedule.getCinemaId();
+            Cinema cinema = cinemaService.findCinemaById(cinemaId);
+
+
+
+            String movieNameCn = movie.getNameCn();
+            String movieNameEn = movie.getNameEn();
+
+            LocalDateTime startTime = schedule.getStartTime();
+            String endTime = schedule.getEndTime();
+
+            String cinemaName = cinema.getName();
+            int posX = ticket.getPosX();
+            int posY = ticket.getPosY();
+
+            String partnerPhone = parner.getPhone();
+
+            OrderDetail orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
+                    partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime, endTime,
+                    cinemaName, posX, posY, partnerPhone);
+
+            orderDetails.add(orderDetail);
+
+        }
+
+        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
 }
