@@ -48,6 +48,19 @@ public class Movie {
 
     public Movie() {}
 
+    public Movie(String nameCn, String nameEn, int type, String origin, String duration, String releaseTime, String introduction, float rank, String post, long likes) {
+        this.nameCn = nameCn;
+        this.nameEn = nameEn;
+        this.type = type;
+        this.origin = origin;
+        this.duration = duration;
+        this.releaseTime = releaseTime;
+        this.introduction = introduction;
+        this.rank = rank;
+        this.post = post;
+        this.likes = likes;
+    }
+
     public long getId() {
         return id;
     }
