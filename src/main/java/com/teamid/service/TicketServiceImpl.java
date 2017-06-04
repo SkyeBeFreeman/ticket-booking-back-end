@@ -2,6 +2,7 @@ package com.teamid.service;
 
 import com.teamid.dao.TicketDAO;
 import com.teamid.entity.Ticket;
+import com.teamid.entity.TicketStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void buyTicket(long ticketTd) {
-        ticketDAO.buyTicketByTicketId(ticketTd);
+        ticketDAO.modifyTicketStatusById(ticketTd, TicketStatus.SOLD.ordinal());
     }
 
     @Override

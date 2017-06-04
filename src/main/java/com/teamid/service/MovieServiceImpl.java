@@ -26,8 +26,8 @@ public class MovieServiceImpl implements MovieService {
     private ScheduleDAO scheduleDAO;
 
     @Override
-    public void likeByMovieId(long movieId) {
-        movieDAO.likeByMovieId(movieId);
+    public void likeMovieById(long movieId) {
+        movieDAO.likeMovieById(movieId);
     }
 
     @Override

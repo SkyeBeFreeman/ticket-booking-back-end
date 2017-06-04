@@ -19,8 +19,8 @@ public class TicketDAOImpl implements TicketDAO {
     private TicketRepository ticketRepository;
 
     @Override
-    public void buyTicketByTicketId(long ticketTd) {
-        ticketRepository.modifyTicketByTicketId(TicketStatus.SOLD.ordinal(), ticketTd);
+    public void modifyTicketStatusById(long ticketTd, int status) {
+        ticketRepository.modifyTicketStatusById(status, ticketTd);
     }
 
     @Override
