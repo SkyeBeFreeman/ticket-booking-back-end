@@ -1,14 +1,13 @@
 package com.teamid.controller;
 
-import com.teamid.entity.Order;
-import com.teamid.entity.OrderRecord;
-import com.teamid.entity.OrderStatus;
-import com.teamid.entity.User;
+import com.teamid.entity.*;
+import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
-import com.teamid.entity.exception.UnauthorizedException;
 import com.teamid.service.OrderRecordService;
 import com.teamid.service.TicketService;
 import com.teamid.service.UserService;
+import com.teamid.utils.LoginUtils;
+import com.teamid.utils.TicketUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,19 +35,22 @@ public class OrderController {
     @PostMapping(value = "/create")
     public ResponseEntity<?> create(long customerTicketId, long partnerTicketId, HttpSession session) {
 
-        if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
+        long userId = LoginUtils.getLoginUserId(session);
 
         if (ticketService.getTicketById(customerTicketId) == null
                 || ticketService.getTicketById(partnerTicketId) == null)
             throw new NotFoundException("Ticket id not found");
 
-        long userId = (long) session.getAttribute("userId");
 
         User customer = userService.findUserById(userId);
 
         if (customer == null)
             throw new NotFoundException("User not found");
+
+        if (TicketUtils.checkTicketExpired(customerTicketId))
+            throw new NotAcceptableException("Ticket expires");
+        if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
+            throw new NotAcceptableException("Partner ticket expires");
 
 
         OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
@@ -63,14 +65,16 @@ public class OrderController {
     @GetMapping(value = "/participate/{orderId}")
     public ResponseEntity<?> participate(@PathVariable long orderId, HttpSession session) {
 
-        if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
+        long userId = LoginUtils.getLoginUserId(session);
 
-        long userId = (long) session.getAttribute("userId");
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
 
-        if (orderRecord != null)
+        if (orderRecord == null)
             throw new NotFoundException("Order not found");
+
+        long partnerTicketId = orderRecord.getPartnerTicketId();
+        if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
+            throw new NotAcceptableException("Partner ticket expires");
 
         orderRecord.setPartnerId(userId);
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);
@@ -82,14 +86,16 @@ public class OrderController {
     @GetMapping(value = "/cancel/{orderId}")
     public HttpStatus cancel(@PathVariable long orderId, HttpSession session) {
 
-        if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
+        long userId = LoginUtils.getLoginUserId(session);
 
-        long userId = (long) session.getAttribute("userId");
         OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
 
-        if (orderRecord != null)
+        if (orderRecord == null)
             throw new NotFoundException("Order not found");
+
+        long ticketId = orderRecord.getPartnerTicketId();
+        if (TicketUtils.checkTicketExpired(ticketId))
+            throw new NotAcceptableException("Ticket expires");
 
         if (orderRecordService.isCustomer(orderId, userId)) {
             orderRecord.setStatus(OrderStatus.CANCELLED.ordinal());
@@ -111,10 +117,7 @@ public class OrderController {
     @GetMapping(value = "/allorder")
     public ResponseEntity<?> allorder(HttpSession session) {
 
-        if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
-
-        long userId = (long) session.getAttribute("userId");
+        long userId = LoginUtils.getLoginUserId(session);
 
         List<OrderRecord> orderRecords = orderRecordService.findOrderRecordsByCustomer(userId);
 

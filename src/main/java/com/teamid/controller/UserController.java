@@ -7,6 +7,7 @@ import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.entity.exception.UnauthorizedException;
 import com.teamid.service.UserService;
+import com.teamid.utils.LoginUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,11 +69,9 @@ public class UserController {
     @GetMapping(value = "/userinfo")
     public ResponseEntity<?> userinfo(HttpSession session){
 
-        if (session.getAttribute("userId") == null)
-            throw new UnauthorizedException("Login first");
-
-        long userId = (long)session.getAttribute("userId");
+        long userId = LoginUtils.getLoginUserId(session);
         User user = userService.findUserById(userId);
+
         if (user != null)
             return new ResponseEntity<>(new UserInShort(user.getUsername(), user.getGender(), user.getPhone()), HttpStatus.OK);
         else
