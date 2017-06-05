@@ -31,4 +31,10 @@ public class CinemaServiceImpl implements CinemaService {
     public Cinema findCinemaById(long cinemaId) {
         return cinemaDAO.findCinemaById(cinemaId);
     }
+
+    @Override
+    public List<Cinema> findCinemaByLocation(int location) {
+        return location == 0 ? cinemaDAO.findAllCinemas().stream().limit(6).collect(Collectors.toList()) :
+                cinemaDAO.findAllCinemas().stream().skip(6).limit(6).collect(Collectors.toList());
+    }
 }
