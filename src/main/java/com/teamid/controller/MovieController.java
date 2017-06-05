@@ -24,9 +24,11 @@ public class MovieController {
 
     @GetMapping(value = "/like/{movieId}")
     public ResponseEntity<?> likeMovie(@PathVariable long movieId) {
-        if (movieService.findMovieById(movieId) != null) {
+        Movie movie = movieService.findMovieById(movieId);
+        if (movie != null) {
             movieService.likeMovieById(movieId);
-            return new ResponseEntity<>(movieService.findMovieById(movieId), HttpStatus.OK);
+            movie.setLike(movie.getLike() + 1);
+            return new ResponseEntity<>(movie, HttpStatus.OK);
         }
         throw new NotFoundException("该电影不存在");
     }

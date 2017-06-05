@@ -14,4 +14,6 @@ public interface TicketDAO {
     List<Ticket> findTicketsByScheduleId(long scheduleId);
 
     Ticket findTicketById(long ticketId);
+
+    void modifyTicketMessageById(long ticketTd, int status);
 }
