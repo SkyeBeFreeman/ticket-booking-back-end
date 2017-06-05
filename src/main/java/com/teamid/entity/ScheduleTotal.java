@@ -31,8 +31,8 @@ public class ScheduleTotal {
         this.hall = schedule.getHall();
         this.startTime = schedule.getStartTime().getMonthValue() + "月"
                        + schedule.getStartTime().getDayOfMonth() + "日 "
-                       + schedule.getStartTime().getHour() + ":"
-                       + schedule.getStartTime().getMinute();
+                       + String.format("%02d", schedule.getStartTime().getHour()) + ":"
+                       + String.format("%02d", schedule.getStartTime().getMinute());
         this.endTime = schedule.getEndTime();
         this.price = schedule.getPrice();
         this.tickets = tickets;
