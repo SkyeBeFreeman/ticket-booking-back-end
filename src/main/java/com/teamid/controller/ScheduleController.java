@@ -1,5 +1,6 @@
 package com.teamid.controller;
 
+import com.teamid.entity.ScheduleForm;
 import com.teamid.entity.ScheduleTotal;
 import com.teamid.entity.Schedule;
 import com.teamid.entity.Ticket;
@@ -13,8 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Skye on 2017/6/3.
@@ -38,7 +42,7 @@ public class ScheduleController {
         if (scheduleList == null || scheduleList.isEmpty()) {
             throw new NotFoundException("没有找到电影和影院对应的档期");
         }
-        return new ResponseEntity<>(scheduleList, HttpStatus.OK);
+        return new ResponseEntity<>(scheduleList.stream().map(i -> new ScheduleForm(i)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{scheduleId}")
