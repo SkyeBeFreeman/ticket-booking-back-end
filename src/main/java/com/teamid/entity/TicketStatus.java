@@ -5,5 +5,6 @@ package com.teamid.entity;
  */
 public enum TicketStatus {
     NOT_SOLD_OUT,
-    SOLD
+    SOLD,
+    BOOKED
 }

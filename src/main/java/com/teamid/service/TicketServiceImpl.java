@@ -34,4 +34,16 @@ public class TicketServiceImpl implements TicketService {
     public Ticket getTicketById(long ticketId) {
         return ticketDAO.findTicketById(ticketId);
     }
+
+    @Override
+    public void modifyTicketStatusById(long ticketTd, int status) {
+        ticketDAO.modifyTicketStatusById(ticketTd, status);
+    }
+
+    @Override
+    public void modifyTicketMessageById(long ticketTd, String message) {
+        ticketDAO.modifyTicketMessageById(ticketTd, message);
+    }
+
+
 }

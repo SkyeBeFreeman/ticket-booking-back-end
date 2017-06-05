@@ -14,4 +14,8 @@ public interface TicketService {
     List<Ticket> getTicketsByScheduleId(long scheduleId);
 
     Ticket getTicketById(long ticketId);
+
+    void modifyTicketStatusById(long ticketTd, int status);
+
+    void modifyTicketMessageById(long ticketTd, String message);
 }

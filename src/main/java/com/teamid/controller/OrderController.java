@@ -42,7 +42,7 @@ public class OrderController {
     CinemaService cinemaService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> create(long customerTicketId, long partnerTicketId, HttpSession session) {
+    public ResponseEntity<?> create(long customerTicketId, long partnerTicketId, String message, HttpSession session) {
 
         long userId = LoginUtils.getLoginUserId(session);
 
@@ -63,6 +63,10 @@ public class OrderController {
         OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
                 OrderStatus.WAITING.ordinal());
         orderRecordService.add(orderRecord);
+
+        ticketService.modifyTicketStatusById(customerTicketId, TicketStatus.SOLD.ordinal());
+        ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.BOOKED.ordinal());
+        ticketService.modifyTicketMessageById(partnerTicketId, message);
 
         return new ResponseEntity<>(new Order(orderRecord.getId(), orderRecord.getCustomerId(),
                 orderRecord.getPartnerId(), orderRecord.getCustomerTicketId(), orderRecord.getPartnerTicketId()), HttpStatus.OK);
@@ -86,6 +90,8 @@ public class OrderController {
         orderRecord.setPartnerId(userId);
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);
         orderRecord.setStatus(OrderStatus.RECEIVED.ordinal());
+        ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.SOLD.ordinal());
+
         return new ResponseEntity<>(new Order(orderId, orderRecord.getCustomerId(), orderRecord.getPartnerId(),
                 orderRecord.getCustomerTicketId(), orderRecord.getPartnerTicketId()), HttpStatus.OK);
     }
@@ -100,19 +106,26 @@ public class OrderController {
         if (orderRecord == null)
             throw new NotFoundException("无效的订单");
 
-        long ticketId = orderRecord.getPartnerTicketId();
-        if (TicketUtils.checkTicketExpired(ticketId))
-            throw new NotAcceptableException("无效的电影票");
+        long customerTicketId = orderRecord.getCustomerTicketId();
+        long partnerTicketId = orderRecord.getPartnerTicketId();
+
 
         if (orderRecordService.isCustomer(orderId, userId)) {
+            if (TicketUtils.checkTicket1hExpired(customerTicketId))
+                throw new NotAcceptableException("开场前一小时不能取消订单");
             orderRecord.setStatus(OrderStatus.CANCELLED.ordinal());
             orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.CANCELLED.ordinal());
+            ticketService.modifyTicketStatusById(customerTicketId, TicketStatus.NOT_SOLD_OUT.ordinal());
+            ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.NOT_SOLD_OUT.ordinal());
         }
         else if (orderRecordService.isPartner(orderId, userId)) {
+            if (TicketUtils.checkTicket1hExpired(partnerTicketId))
+                throw new NotAcceptableException("开场前一小时不能取消订单");
             orderRecord.setPartnerId(-1);
             orderRecord.setStatus(OrderStatus.WAITING.ordinal());
             orderRecordService.updateOrderRecordWithPartnerId(orderId, -1);
             orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.WAITING.ordinal());
+            ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.BOOKED.ordinal());
         }
         else {
             throw new NotFoundException("不是该订单的用户");
@@ -136,10 +149,16 @@ public class OrderController {
             long customerTicketId = orderRecord.getCustomerTicketId();
             long partnerTicketId = orderRecord.getPartnerTicketId();
 
-            int orderStatus = orderRecord.getStatus();
 
-            User parner = userService.findUserById(userId);
+            User partner = userService.findUserById(userId);
             Ticket ticket = ticketService.getTicketById(customerTicketId);
+
+            if (TicketUtils.checkTicketExpired(customerTicketId)) {
+                orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.FINISHED.ordinal());
+                orderRecord.setStatus(OrderStatus.FINISHED.ordinal());
+            }
+
+            int orderStatus = orderRecord.getStatus();
             long scheduleId = ticket.getScheduleId();
             Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
             long movieId = schedule.getMovieId();
@@ -157,7 +176,7 @@ public class OrderController {
             int posX = ticket.getPosX();
             int posY = ticket.getPosY();
 
-            String partnerPhone = parner.getPhone();
+            String partnerPhone = partner.getPhone();
 
             OrderDetail orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
                     partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime, endTime,
