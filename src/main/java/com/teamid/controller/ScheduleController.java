@@ -6,6 +6,8 @@ import com.teamid.entity.Ticket;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.ScheduleService;
 import com.teamid.service.TicketService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ public class ScheduleController {
     @Autowired
     private TicketService ticketService;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @PostMapping(value = "/scheduleinfo")
     public ResponseEntity<?> getScheduleByCinemaIdAndMovieId(long cinemaId, long movieId) {
         List<Schedule> scheduleList = scheduleService.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
@@ -48,6 +52,7 @@ public class ScheduleController {
             throw new NotFoundException("没有票");
         }
         ScheduleTotal responseObject = new ScheduleTotal(temp.get(), ticketList);
+        logger.info(responseObject.getStartTime());
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
