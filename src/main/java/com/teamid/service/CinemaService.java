@@ -13,4 +13,6 @@ public interface CinemaService {
     List<Cinema> findHotCinemas();
 
     Cinema findCinemaById(long cinemaId);
+
+    List<Cinema> findCinemaByLocation(int location);
 }
