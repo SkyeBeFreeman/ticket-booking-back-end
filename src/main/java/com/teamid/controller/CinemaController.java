@@ -2,6 +2,8 @@ package com.teamid.controller;
 
 import com.teamid.entity.Cinema;
 import com.teamid.entity.CinemaInfo;
+import com.teamid.entity.Schedule;
+import com.teamid.entity.ScheduleBean;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.CinemaService;
 import com.teamid.service.MovieService;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Wangzf on 2017/6/3.
@@ -44,8 +49,12 @@ public class CinemaController {
     public ResponseEntity<?> getCinemaInfoById(@PathVariable long cinemaId) {
         Cinema cinema = cinemaService.findCinemaById(cinemaId);
         if (cinema != null) {
-            return new ResponseEntity<>(new CinemaInfo(cinema, movieService.findMoviesByCinemaId(cinemaId),
-                    scheduleService.findSchedulesByCinemaId(cinemaId)), HttpStatus.OK);
+            List<Schedule> schedules = scheduleService.findSchedulesByCinemaId(cinemaId);
+            List<ScheduleBean> scheduleBeans = new ArrayList<>();
+            for (Schedule schedule : schedules) {
+                scheduleBeans.add(new ScheduleBean(schedule));
+            }
+            return new ResponseEntity<>(new CinemaInfo(cinema, movieService.findMoviesByCinemaId(cinemaId), scheduleBeans), HttpStatus.OK);
         }
         throw new NotFoundException("电影院不存在");
     }
