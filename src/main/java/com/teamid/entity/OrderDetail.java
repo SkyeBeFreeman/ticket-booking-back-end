@@ -18,7 +18,7 @@ public class OrderDetail {
     String movieCnName;
     String movieEnName;
 
-    LocalDateTime startTime;
+    String startTime;
     String endTime;
 
     String cinemaName;
@@ -88,7 +88,7 @@ public class OrderDetail {
         this.movieEnName = movieEnName;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -117,7 +117,7 @@ public class OrderDetail {
 
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
@@ -141,7 +141,7 @@ public class OrderDetail {
         return partnerPhone;
     }
 
-    public OrderDetail(long orderId, long customerId, long partnerId, long customerTicketId, long partnerTicketId, int orderStatu, String movieCnName, String movieEnName, LocalDateTime startTime, String endTime, String cinemaName, int posX, int posY, String partnerPhone) {
+    public OrderDetail(long orderId, long customerId, long partnerId, long customerTicketId, long partnerTicketId, int orderStatu, String movieCnName, String movieEnName, String startTime, String endTime, String cinemaName, int posX, int posY, String partnerPhone) {
 
         this.orderId = orderId;
         this.customerId = customerId;

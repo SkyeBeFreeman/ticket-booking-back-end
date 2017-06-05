@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,8 +179,10 @@ public class OrderController {
 
             String partnerPhone = partner.getPhone();
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM月dd日 HH:mm");
+
             OrderDetail orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
-                    partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime, endTime,
+                    partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime.format(formatter), endTime,
                     cinemaName, posX, posY, partnerPhone);
 
             orderDetails.add(orderDetail);
