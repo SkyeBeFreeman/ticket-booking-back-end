@@ -28,7 +28,7 @@ public class MovieController {
             movieService.likeMovieById(movieId);
             return new ResponseEntity<>(movieService.findMovieById(movieId), HttpStatus.OK);
         }
-        throw new NotFoundException("Movie not found");
+        throw new NotFoundException("该电影不存在");
     }
 
     @GetMapping(value = "/hotmovies/{movieIndex}")
@@ -36,7 +36,7 @@ public class MovieController {
         if (movieIndex < movieService.getMovieNums()) {
             return new ResponseEntity<>(movieService.findHotMovies(movieIndex), HttpStatus.OK);
         }
-        throw new NotFoundException("Movie not found");
+        throw new NotFoundException("没有更多热门电影了");
     }
 
     @GetMapping(value = "/cinema/{cinemaId}")
@@ -44,7 +44,7 @@ public class MovieController {
         if (cinemaService.findCinemaById(cinemaId) != null) {
             return new ResponseEntity<>(movieService.findMoviesByCinemaId(cinemaId), HttpStatus.OK);
         }
-        throw new NotFoundException("Cinema not found");
+        throw new NotFoundException("该电影院不存在");
     }
 
     @GetMapping(value = "/{movieId}")
@@ -53,6 +53,6 @@ public class MovieController {
         if (movie != null) {
             return new ResponseEntity<>(movie, HttpStatus.OK);
         }
-        throw new NotFoundException("Movie not found");
+        throw new NotFoundException("该电影不存在");
     }
 }

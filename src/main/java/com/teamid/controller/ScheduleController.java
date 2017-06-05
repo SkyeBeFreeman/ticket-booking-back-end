@@ -32,7 +32,7 @@ public class ScheduleController {
     public ResponseEntity<?> getScheduleByCinemaIdAndMovieId(long cinemaId, long movieId) {
         List<Schedule> scheduleList = scheduleService.findSchedulesByCinemaIdAndMovieId(cinemaId, movieId);
         if (scheduleList == null || scheduleList.isEmpty()) {
-            throw new NotFoundException("Schedule Not Found");
+            throw new NotFoundException("没有找到电影和影院对应的档期");
         }
         return new ResponseEntity<>(scheduleList, HttpStatus.OK);
     }
@@ -41,11 +41,11 @@ public class ScheduleController {
     public ResponseEntity<?> getScheduleByScheduleId(@PathVariable long scheduleId) {
         Optional<Schedule> temp = scheduleService.findScheduleByScheduleId(scheduleId);
         if (!temp.isPresent()) {
-            throw new NotFoundException("Schedule Not Found");
+            throw new NotFoundException("没有找到对应的档期");
         }
         List<Ticket> ticketList = ticketService.getTicketsByScheduleId(scheduleId);
         if (ticketList == null || ticketList.isEmpty()) {
-            throw new NotFoundException("Ticket Not Found");
+            throw new NotFoundException("没有票");
         }
         ScheduleTotal responseObject = new ScheduleTotal(temp.get(), ticketList);
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
