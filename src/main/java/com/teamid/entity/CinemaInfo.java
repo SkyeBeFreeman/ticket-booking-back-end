@@ -13,9 +13,9 @@ public class CinemaInfo {
     private float rank;
 
     private List<Movie> movies;
-    private List<Schedule> schedules;
+    private List<ScheduleBean> schedules;
 
-    public CinemaInfo(Cinema cinema, List<Movie> movies, List<Schedule> schedules) {
+    public CinemaInfo(Cinema cinema, List<Movie> movies, List<ScheduleBean> schedules) {
         this.id = cinema.getId();
         this.name = cinema.getName();
         this.address = cinema.getAddress();
@@ -65,11 +65,11 @@ public class CinemaInfo {
         this.movies = movies;
     }
 
-    public List<Schedule> getSchedules() {
+    public List<ScheduleBean> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
+    public void setSchedules(List<ScheduleBean> schedules) {
         this.schedules = schedules;
     }
 }
