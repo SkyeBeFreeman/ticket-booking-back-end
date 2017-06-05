@@ -56,9 +56,9 @@ public class UserController {
         User user = userService.login(phone, password);
 
         if (session.isNew()) {
-            logger.info("session创建成功，session的id是：" + session.getId());
+            logger.info("Successfully creates a session ，the id of session ：" + session.getId());
         } else {
-            logger.info("服务器已经存在该session了，session的id是："+ session.getId());
+            logger.info("session already exists in the server, the id of session ："+ session.getId());
         }
 
         if (user != null) {
