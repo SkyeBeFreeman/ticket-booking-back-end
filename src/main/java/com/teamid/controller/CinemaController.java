@@ -1,9 +1,6 @@
 package com.teamid.controller;
 
-import com.teamid.entity.Cinema;
-import com.teamid.entity.CinemaInfo;
-import com.teamid.entity.Schedule;
-import com.teamid.entity.ScheduleBean;
+import com.teamid.entity.*;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.CinemaService;
 import com.teamid.service.MovieService;
@@ -50,11 +47,18 @@ public class CinemaController {
         Cinema cinema = cinemaService.findCinemaById(cinemaId);
         if (cinema != null) {
             List<Schedule> schedules = scheduleService.findSchedulesByCinemaId(cinemaId);
+            List<Movie> movies = movieService.findMoviesByCinemaId(cinemaId);
+            List<MovieDetail> movieDetails = new ArrayList<>();
+
             List<ScheduleBean> scheduleBeans = new ArrayList<>();
             for (Schedule schedule : schedules) {
                 scheduleBeans.add(new ScheduleBean(schedule));
             }
-            return new ResponseEntity<>(new CinemaInfo(cinema, movieService.findMoviesByCinemaId(cinemaId), scheduleBeans), HttpStatus.OK);
+            for (Movie movie : movies) {
+                movieDetails.add(new MovieDetail(movie, scheduleBeans));
+            }
+
+            return new ResponseEntity<>(new CinemaInfo(cinema, movieDetails), HttpStatus.OK);
         }
         throw new NotFoundException("电影院不存在");
     }

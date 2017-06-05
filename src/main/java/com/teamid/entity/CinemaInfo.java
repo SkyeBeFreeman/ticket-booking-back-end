@@ -12,17 +12,15 @@ public class CinemaInfo {
     private String address;
     private float rank;
 
-    private List<Movie> movies;
-    private List<ScheduleBean> schedules;
+    private List<MovieDetail> movies;
 
-    public CinemaInfo(Cinema cinema, List<Movie> movies, List<ScheduleBean> schedules) {
+    public CinemaInfo(Cinema cinema, List<MovieDetail> movies) {
         this.id = cinema.getId();
         this.name = cinema.getName();
         this.address = cinema.getAddress();
         this.rank = cinema.getRank();
 
         this.movies = movies;
-        this.schedules = schedules;
     }
 
     public long getId() {
@@ -57,19 +55,11 @@ public class CinemaInfo {
         this.rank = rank;
     }
 
-    public List<Movie> getMovies() {
+    public List<MovieDetail> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MovieDetail> movies) {
         this.movies = movies;
-    }
-
-    public List<ScheduleBean> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<ScheduleBean> schedules) {
-        this.schedules = schedules;
     }
 }
