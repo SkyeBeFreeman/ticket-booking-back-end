@@ -21,11 +21,7 @@ public class TicketUtils {
 
     public static boolean checkPartnerTicketExpired(long ticketId) {
 
-        Ticket ticket = ticketService.getTicketById(ticketId);
-        long scheduleId = ticket.getScheduleId();
-        Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
-        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
-        return gap <= 60;
+        return checkTicket1hExpired(ticketId);
 
     }
 
@@ -37,6 +33,17 @@ public class TicketUtils {
         long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
 
         return gap <= 0;
+
+    }
+
+    public static boolean checkTicket1hExpired(long ticketId) {
+
+        Ticket ticket = ticketService.getTicketById(ticketId);
+        long scheduleId = ticket.getScheduleId();
+        Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
+        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+
+        return gap <= 60;
 
     }
 
