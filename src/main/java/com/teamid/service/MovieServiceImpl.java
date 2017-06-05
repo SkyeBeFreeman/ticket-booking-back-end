@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class MovieServiceImpl implements MovieService {
 
-    private static final int HOT_MOVIES_NUM = 10;
+    private static final int HOT_MOVIES_NUM = 6;
 
     @Autowired
     private MovieDAO movieDAO;
