@@ -30,7 +30,7 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> register(@RequestBody UserForm userForm) {
+    public ResponseEntity<?> register(@RequestBody UserForm userForm, HttpSession session) {
 
         String username = userForm.getUsername();
         String password = userForm.getPassword();
@@ -41,8 +41,10 @@ public class UserController {
             throw new NotAcceptableException("注册格式出错");
 
         User user = new User(username, password, gender, phone);
-        if (userService.add(user))
+        if (userService.add(user)) {
+            session.setAttribute("userId", user.getId());
             return new ResponseEntity<>(new UserInShort(username, gender, phone), HttpStatus.OK);
+        }
         else
             throw new NotAcceptableException("该手机号已被注册");
 
