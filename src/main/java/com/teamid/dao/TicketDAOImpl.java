@@ -1,7 +1,6 @@
 package com.teamid.dao;
 
 import com.teamid.entity.Ticket;
-import com.teamid.entity.TicketStatus;
 import com.teamid.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
