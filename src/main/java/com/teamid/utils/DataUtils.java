@@ -1,9 +1,6 @@
 package com.teamid.utils;
 
-import com.teamid.entity.Cinema;
-import com.teamid.entity.Movie;
-import com.teamid.entity.Schedule;
-import com.teamid.entity.Ticket;
+import com.teamid.entity.*;
 import com.teamid.repository.CinemaRepository;
 import com.teamid.repository.MovieRepository;
 import com.teamid.repository.ScheduleRepository;
@@ -117,21 +114,21 @@ public class DataUtils {
         cinemaRepository.save(new Cinema("大地影院(员村店)",
                 "天河区员村二横路2号员村工人文化宫内（黄埔大道口）",
                 9.7f));
-        cinemaRepository.save(new Cinema("映联万和影城",
-                "海珠区新港东路618号南丰汇广场3楼",
+        cinemaRepository.save(new Cinema("中影JAJ24小时咖啡影院(科宝商城店)",
+                "番禺区大石街朝阳东路186号A栋2楼",
                 6.5f));
 
-        movieRepository.save(new Movie("神奇女侠",
-                "Wonder Woman",
-                3,
+        movieRepository.save(new Movie("迷失Z城",
+                "The Lost City of Z",
+                MovieType.ACTION | MovieType.ADVENTURE,
                 "美国",
-                "142",
+                "104",
                 "2017-06-02",
-                "故事讲述亚马逊公主戴安娜·普林斯（盖尔·加朵 饰），经过在家乡天堂岛的训练，取得上帝赐予的武器与装备，化身神奇女侠，与空军上尉史蒂夫·特雷弗（克里斯·派恩 饰）一同来到人类世界，一起捍卫和平、拯救世界，在一战期间上演了震撼人心的史诗传奇。",
-                8.6f,
-                "scqx.jpg",
+                "1925年,英国上校福赛特（查理·汉纳姆 饰）深入亚马逊丛林寻找失落的古老文明,希望找到历史上最重大的发现。几个世纪以来,欧洲人一直坚信亚马逊这个世界上最大的丛林里掩藏着一个黄金国,然而,成干上万闯入丛林探险的人都丧身其中,这使得很多科学家认为亚马逊是人类无法进入的。但福赛特上校却三次深入丛林探险,他下定决心要证明给世人,这个被他称为“Z城”的古老文明是真实存在过的。",
+                5.8f,
+                "mszc.jpg",
                 0L));
-        movieRepository.save(new Movie("加勒比海盗5：死无对证",
+        movieRepository.save(new Movie("异形：契约",
                 "Pirates of the Caribbean: Dead Men Tell No Tales",
                 5,
                 "美国",

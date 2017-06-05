@@ -41,8 +41,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void modifyTicketMessageById(long ticketTd, int status) {
-        ticketDAO.modifyTicketMessageById(ticketTd, status);
+    public void modifyTicketMessageById(long ticketTd, String message) {
+        ticketDAO.modifyTicketMessageById(ticketTd, message);
     }
 
 
