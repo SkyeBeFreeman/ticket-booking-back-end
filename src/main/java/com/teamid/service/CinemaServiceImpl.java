@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class CinemaServiceImpl implements CinemaService {
 
-    private static final int HOT_CINEMAS_NUM = 10;
+    private static final int HOT_CINEMAS_NUM = 6;
 
     @Autowired
     private CinemaDAO cinemaDAO;
