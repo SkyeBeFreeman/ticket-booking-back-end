@@ -1,9 +1,5 @@
 package com.teamid;
 
-import com.teamid.entity.Cinema;
-import com.teamid.entity.Movie;
-import com.teamid.entity.Schedule;
-import com.teamid.entity.Ticket;
 import com.teamid.repository.CinemaRepository;
 import com.teamid.repository.MovieRepository;
 import com.teamid.repository.ScheduleRepository;
@@ -16,8 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 @EnableRedisHttpSession
@@ -40,7 +34,7 @@ public class TicketBookingBackEndApplication {
 								  TicketRepository ticketRepository) {
 		return args -> {
 
-//			DataUtils.addTestData(cinemaRepository, movieRepository, scheduleRepository, ticketRepository);
+			DataUtils.addTestData(cinemaRepository, movieRepository, scheduleRepository, ticketRepository);
 
         };
 	}
