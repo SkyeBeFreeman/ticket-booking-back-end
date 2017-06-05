@@ -34,7 +34,7 @@ public class Movie {
     @Column(nullable = false)
     private String releaseTime;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Text")
     private String introduction;
 
     @Column(nullable = false)
