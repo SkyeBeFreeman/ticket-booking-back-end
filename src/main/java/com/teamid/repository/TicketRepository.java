@@ -21,5 +21,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Modifying
     @Query(value = "update ticket t set t.message = ?1 where t.id = ?2", nativeQuery = true)
-    void modifyTicketMessageById(int status, long ticketTd);
+    void modifyTicketMessageById(String message, long ticketTd);
 }

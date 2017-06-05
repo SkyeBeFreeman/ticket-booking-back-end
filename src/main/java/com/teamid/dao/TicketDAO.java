@@ -15,5 +15,5 @@ public interface TicketDAO {
 
     Ticket findTicketById(long ticketId);
 
-    void modifyTicketMessageById(long ticketTd, int status);
+    void modifyTicketMessageById(long ticketTd, String message);
 }

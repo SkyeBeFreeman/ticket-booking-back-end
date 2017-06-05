@@ -34,7 +34,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public void modifyTicketMessageById(long ticketTd, int status) {
-        ticketRepository.modifyTicketMessageById(status, ticketTd);
+    public void modifyTicketMessageById(long ticketTd, String message) {
+        ticketRepository.modifyTicketMessageById(message, ticketTd);
     }
 }

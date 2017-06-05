@@ -17,5 +17,5 @@ public interface TicketService {
 
     void modifyTicketStatusById(long ticketTd, int status);
 
-    void modifyTicketMessageById(long ticketTd, int status);
+    void modifyTicketMessageById(long ticketTd, String message);
 }
