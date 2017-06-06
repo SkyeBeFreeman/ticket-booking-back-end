@@ -56,7 +56,7 @@ public class ScheduleController {
             throw new NotFoundException("没有票");
         }
         ScheduleTotal responseObject = new ScheduleTotal(temp.get(), ticketList);
-        logger.info(responseObject.getStartTime());
+//        logger.info(responseObject.getStartTime());
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
