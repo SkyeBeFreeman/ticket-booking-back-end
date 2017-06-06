@@ -20,9 +20,9 @@ public class MovieDetail {
     private String post;
     private long likes;
 
-    private List<ScheduleBean> scheduleBeans;
+    private List<ScheduleForm> schedules;
 
-    public MovieDetail(Movie movie, List<ScheduleBean> scheduleBeans) {
+    public MovieDetail(Movie movie, List<ScheduleForm> scheduleBeans) {
         this.id = movie.getId();
         this.nameCn = movie.getNameCn();
         this.nameEn = movie.getNameEn();
@@ -35,7 +35,7 @@ public class MovieDetail {
         this.post = movie.getPost();
         this.likes = movie.getLike();
 
-        this.scheduleBeans = scheduleBeans.stream().filter(
+        this.schedules = scheduleBeans.stream().filter(
                 scheduleBean -> this.id == scheduleBean.getMovieId()
         ).collect(Collectors.toList());
     }
@@ -128,11 +128,11 @@ public class MovieDetail {
         this.likes = likes;
     }
 
-    public List<ScheduleBean> getScheduleBeans() {
-        return scheduleBeans;
+    public List<ScheduleForm> getSchedules() {
+        return schedules;
     }
 
-    public void setScheduleBeans(List<ScheduleBean> scheduleBeans) {
-        this.scheduleBeans = scheduleBeans;
+    public void setSchedules(List<ScheduleForm> schedules) {
+        this.schedules = schedules;
     }
 }
