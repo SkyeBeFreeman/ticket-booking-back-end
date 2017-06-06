@@ -18,4 +18,10 @@ public interface TicketService {
     void modifyTicketStatusById(long ticketTd, int status);
 
     void modifyTicketMessageById(long ticketTd, String message);
+
+    boolean checkPartnerTicketExpired(long ticketId);
+
+    boolean checkTicketExpired(long ticketId);
+
+    boolean checkTicket1hExpired(long ticketId);
 }
