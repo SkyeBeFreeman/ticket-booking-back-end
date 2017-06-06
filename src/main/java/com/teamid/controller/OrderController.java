@@ -5,6 +5,7 @@ import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.*;
 import com.teamid.utils.LoginUtils;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,6 +115,11 @@ public class OrderController {
         long customerTicketId = orderRecord.getCustomerTicketId();
         long partnerTicketId = orderRecord.getPartnerTicketId();
 
+        if (orderRecord.getStatus() == OrderStatus.CANCELLED.ordinal())
+            throw new NotAcceptableException("不能重复取消订单");
+
+        if (orderRecord.getStatus() == OrderStatus.FINISHED.ordinal())
+            throw new NotAcceptableException("不能取消已完成的订单");
 
         if (orderRecordService.isCustomer(orderId, userId)) {
             if (ticketService.checkTicket1hExpired(customerTicketId))
@@ -145,25 +151,30 @@ public class OrderController {
         long userId = LoginUtils.getLoginUserId(session);
         List<OrderDetail> orderDetails = new ArrayList<>();
 
-        List<OrderRecord> orderRecords = orderRecordService.findOrderRecordsByCustomer(userId);
+        List<OrderRecord> customerOrderRecords = orderRecordService.findOrderRecordsByCustomerId(userId);
+        List<OrderRecord> partnerOrderRecords = orderRecordService.findOrderRecordsByPartnerId(userId);
 
-        for (OrderRecord orderRecord : orderRecords) {
-            long orderId = orderRecord.getId();
-            long customerId = orderRecord.getCustomerId();
-            long partnerId = orderRecord.getPartnerId();
-            long customerTicketId = orderRecord.getCustomerTicketId();
-            long partnerTicketId = orderRecord.getPartnerTicketId();
+        List<OrderRecord> orderRecords = customerOrderRecords;
+        orderRecords.addAll(partnerOrderRecords);
+
+        for (int i = 0; i < orderRecords.size(); i++) {
+            long orderId = orderRecords.get(i).getId();
+            long customerId = orderRecords.get(i).getCustomerId();
+            long partnerId = orderRecords.get(i).getPartnerId();
+            long customerTicketId = orderRecords.get(i).getCustomerTicketId();
+            long partnerTicketId = orderRecords.get(i).getPartnerTicketId();
 
 
-            User partner = userService.findUserById(userId);
+            User customer = userService.findUserById(userId);
+            User partner = userService.findUserById(partnerId);
             Ticket ticket = ticketService.getTicketById(customerTicketId);
 
             if (ticketService.checkTicketExpired(customerTicketId)) {
                 orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.FINISHED.ordinal());
-                orderRecord.setStatus(OrderStatus.FINISHED.ordinal());
+                orderRecords.get(i).setStatus(OrderStatus.FINISHED.ordinal());
             }
 
-            int orderStatus = orderRecord.getStatus();
+            int orderStatus = orderRecords.get(i).getStatus();
             long scheduleId = ticket.getScheduleId();
             Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
             long movieId = schedule.getMovieId();
@@ -181,13 +192,22 @@ public class OrderController {
             int posX = ticket.getPosX();
             int posY = ticket.getPosY();
 
+            String customerPhone = customer.getPhone();
             String partnerPhone = partner.getPhone();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM月dd日 HH:mm");
 
-            OrderDetail orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
-                    partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime.format(formatter), endTime,
-                    cinemaName, posX, posY, partnerPhone);
+            OrderDetail orderDetail;
+            if (i < customerOrderRecords.size()) {
+                orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
+                        partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime.format(formatter), endTime,
+                        cinemaName, posX, posY, customerPhone, partnerPhone);
+            }
+            else {
+                orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
+                        partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime.format(formatter), endTime,
+                        cinemaName, posX, posY, partnerPhone, customerPhone);
+            }
 
             orderDetails.add(orderDetail);
 

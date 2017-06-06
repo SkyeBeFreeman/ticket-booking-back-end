@@ -26,6 +26,7 @@ public class OrderDetail {
     int posX;
     int posY;
 
+    String customerPhone;
     String partnerPhone;
 
     public long getOrderId() {
@@ -112,6 +113,10 @@ public class OrderDetail {
         this.partnerPhone = partnerPhone;
     }
 
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
     public String getMovieEnName() {
         return movieEnName;
 
@@ -141,8 +146,13 @@ public class OrderDetail {
         return partnerPhone;
     }
 
-    public OrderDetail(long orderId, long customerId, long partnerId, long customerTicketId, long partnerTicketId, int orderStatu, String movieCnName, String movieEnName, String startTime, String endTime, String cinemaName, int posX, int posY, String partnerPhone) {
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
 
+    public OrderDetail(long orderId, long customerId, long partnerId, long customerTicketId, long partnerTicketId,
+                       int orderStatu, String movieCnName, String movieEnName, String startTime, String endTime,
+                       String cinemaName, int posX, int posY, String customerPhone, String partnerPhone) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.partnerId = partnerId;
@@ -156,6 +166,7 @@ public class OrderDetail {
         this.cinemaName = cinemaName;
         this.posX = posX;
         this.posY = posY;
+        this.customerPhone = customerPhone;
         this.partnerPhone = partnerPhone;
     }
 }

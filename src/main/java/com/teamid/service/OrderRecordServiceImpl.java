@@ -31,8 +31,14 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     }
 
     @Override
-    public List<OrderRecord> findOrderRecordsByCustomer(long customerId) {
-        List<OrderRecord> orderRecords = orderRecordDAO.findOrderRecodesByCustomer(customerId);
+    public List<OrderRecord> findOrderRecordsByCustomerId(long customerId) {
+        List<OrderRecord> orderRecords = orderRecordDAO.findOrderRecodesByCustomerId(customerId);
+        return orderRecords;
+    }
+
+    @Override
+    public List<OrderRecord> findOrderRecordsByPartnerId(long partnerId) {
+        List<OrderRecord> orderRecords = orderRecordDAO.findOrderRecodesByPartnerId(partnerId);
         return orderRecords;
     }
 

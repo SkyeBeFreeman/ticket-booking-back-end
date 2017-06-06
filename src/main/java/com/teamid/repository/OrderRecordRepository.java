@@ -14,6 +14,8 @@ public interface OrderRecordRepository extends JpaRepository<OrderRecord, Long> 
 
     List<OrderRecord> findOrderRecordsByCustomerId(long customerId);
 
+    List<OrderRecord> findOrderRecordsByPartnerId(long partnerId);
+
     @Modifying
     @Query(value = "update OrderRecord o set o.partnerId = ?2 where o.id = ?1"
     , nativeQuery = true)
