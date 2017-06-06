@@ -50,12 +50,12 @@ public class CinemaController {
             List<Movie> movies = movieService.findMoviesByCinemaId(cinemaId);
             List<MovieDetail> movieDetails = new ArrayList<>();
 
-            List<ScheduleBean> scheduleBeans = new ArrayList<>();
+            List<ScheduleForm> scheduleForms = new ArrayList<>();
             for (Schedule schedule : schedules) {
-                scheduleBeans.add(new ScheduleBean(schedule));
+                scheduleForms.add(new ScheduleForm(schedule));
             }
             for (Movie movie : movies) {
-                movieDetails.add(new MovieDetail(movie, scheduleBeans));
+                movieDetails.add(new MovieDetail(movie, scheduleForms));
             }
 
             return new ResponseEntity<>(new CinemaInfo(cinema, movieDetails), HttpStatus.OK);
