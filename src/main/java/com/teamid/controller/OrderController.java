@@ -193,7 +193,9 @@ public class OrderController {
             int posY = ticket.getPosY();
 
             String customerPhone = customer.getPhone();
-            String partnerPhone = partner.getPhone();
+            String partnerPhone = "-1";
+            if (partner != null)
+                partnerPhone = partner.getPhone();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM月dd日 HH:mm");
 
