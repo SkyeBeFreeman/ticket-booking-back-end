@@ -47,9 +47,11 @@ public class OrderController {
 
         long userId = LoginUtils.getLoginUserId(session);
 
-        if (ticketService.getTicketById(customerTicketId) == null
-                || ticketService.getTicketById(partnerTicketId) == null)
-            throw new NotFoundException("无效的电影票");
+        Ticket customerTicket = ticketService.getTicketById(customerTicketId);
+        Ticket partnerTicket = ticketService.getTicketById(partnerTicketId);
+
+        if (customerTicket == null)
+            throw new NotFoundException("无效的订单");
 
 
         User customer = userService.findUserById(userId);
@@ -58,7 +60,7 @@ public class OrderController {
 
         if (TicketUtils.checkTicketExpired(customerTicketId))
             throw new NotAcceptableException("无效的电影票");
-        if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
+        if (partnerTicket != null &&TicketUtils.checkPartnerTicketExpired(partnerTicketId))
             throw new NotAcceptableException("无效的电影票");
 
         OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
@@ -66,7 +68,8 @@ public class OrderController {
         orderRecordService.add(orderRecord);
 
         ticketService.modifyTicketStatusById(customerTicketId, TicketStatus.SOLD.ordinal());
-        ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.BOOKED.ordinal());
+        if (partnerTicket != null)
+            ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.BOOKED.ordinal());
         ticketService.modifyTicketMessageById(partnerTicketId, message);
 
         return new ResponseEntity<>(new Order(orderRecord.getId(), orderRecord.getCustomerId(),
@@ -85,6 +88,8 @@ public class OrderController {
             throw new NotFoundException("无效的订单");
 
         long partnerTicketId = orderRecord.getPartnerTicketId();
+        if (partnerTicketId == -1)
+            throw new NotAcceptableException("该订单不接受约影");
         if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
             throw new NotAcceptableException("无效的电影票");
 
