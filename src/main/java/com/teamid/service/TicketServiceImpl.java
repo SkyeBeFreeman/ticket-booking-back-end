@@ -1,12 +1,15 @@
 package com.teamid.service;
 
 import com.teamid.dao.TicketDAO;
+import com.teamid.entity.Schedule;
 import com.teamid.entity.Ticket;
 import com.teamid.entity.TicketStatus;
+import com.teamid.utils.LocalDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,6 +22,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private TicketDAO ticketDAO;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Override
     public void buyTicket(long ticketTd) {
@@ -43,6 +49,35 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void modifyTicketMessageById(long ticketTd, String message) {
         ticketDAO.modifyTicketMessageById(ticketTd, message);
+    }
+
+    @Override
+    public boolean checkPartnerTicketExpired(long ticketId) {
+        return checkTicket1hExpired(ticketId);
+    }
+
+    @Override
+    public boolean checkTicketExpired(long ticketId) {
+
+        Ticket ticket = ticketDAO.findTicketById(ticketId);
+        long scheduleId = ticket.getScheduleId();
+        Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
+        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+
+        return gap <= 0;
+
+    }
+
+    @Override
+    public boolean checkTicket1hExpired(long ticketId) {
+
+        Ticket ticket = ticketDAO.findTicketById(ticketId);
+        long scheduleId = ticket.getScheduleId();
+        Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
+        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+
+        return gap <= 60;
+
     }
 
 

@@ -5,7 +5,6 @@ import com.teamid.entity.exception.NotAcceptableException;
 import com.teamid.entity.exception.NotFoundException;
 import com.teamid.service.*;
 import com.teamid.utils.LoginUtils;
-import com.teamid.utils.TicketUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,9 +57,9 @@ public class OrderController {
         if (customer == null)
             throw new NotFoundException("未注册的用户");
 
-        if (TicketUtils.checkTicketExpired(customerTicketId))
+        if (ticketService.checkTicketExpired(customerTicketId))
             throw new NotAcceptableException("无效的电影票");
-        if (partnerTicket != null &&TicketUtils.checkPartnerTicketExpired(partnerTicketId))
+        if (partnerTicket != null && ticketService.checkPartnerTicketExpired(partnerTicketId))
             throw new NotAcceptableException("无效的电影票");
 
         OrderRecord orderRecord = new OrderRecord(customer.getId(), -1, customerTicketId, partnerTicketId,
@@ -90,7 +89,7 @@ public class OrderController {
         long partnerTicketId = orderRecord.getPartnerTicketId();
         if (partnerTicketId == -1)
             throw new NotAcceptableException("该订单不接受约影");
-        if (TicketUtils.checkPartnerTicketExpired(partnerTicketId))
+        if (ticketService.checkPartnerTicketExpired(partnerTicketId))
             throw new NotAcceptableException("无效的电影票");
 
         orderRecord.setPartnerId(userId);
@@ -117,7 +116,7 @@ public class OrderController {
 
 
         if (orderRecordService.isCustomer(orderId, userId)) {
-            if (TicketUtils.checkTicket1hExpired(customerTicketId))
+            if (ticketService.checkTicket1hExpired(customerTicketId))
                 throw new NotAcceptableException("开场前一小时不能取消订单");
             orderRecord.setStatus(OrderStatus.CANCELLED.ordinal());
             orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.CANCELLED.ordinal());
@@ -125,7 +124,7 @@ public class OrderController {
             ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.NOT_SOLD_OUT.ordinal());
         }
         else if (orderRecordService.isPartner(orderId, userId)) {
-            if (TicketUtils.checkTicket1hExpired(partnerTicketId))
+            if (ticketService.checkTicket1hExpired(partnerTicketId))
                 throw new NotAcceptableException("开场前一小时不能取消订单");
             orderRecord.setPartnerId(-1);
             orderRecord.setStatus(OrderStatus.WAITING.ordinal());
@@ -159,7 +158,7 @@ public class OrderController {
             User partner = userService.findUserById(userId);
             Ticket ticket = ticketService.getTicketById(customerTicketId);
 
-            if (TicketUtils.checkTicketExpired(customerTicketId)) {
+            if (ticketService.checkTicketExpired(customerTicketId)) {
                 orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.FINISHED.ordinal());
                 orderRecord.setStatus(OrderStatus.FINISHED.ordinal());
             }
