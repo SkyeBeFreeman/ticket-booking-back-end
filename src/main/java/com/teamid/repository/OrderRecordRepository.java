@@ -17,12 +17,12 @@ public interface OrderRecordRepository extends JpaRepository<OrderRecord, Long> 
     List<OrderRecord> findOrderRecordsByPartnerId(long partnerId);
 
     @Modifying
-    @Query(value = "update OrderRecord o set o.partnerId = ?2 where o.id = ?1"
+    @Query(value = "update order_record o set o.partnerId = ?2 where o.id = ?1"
     , nativeQuery = true)
     void modifyOrderRecordWithPartnerId(long id, long parnetId);
 
     @Modifying
-    @Query(value = "update OrderRecord o set o.status = ?2 where o.id = ?1"
+    @Query(value = "update order_record o set o.status = ?2 where o.id = ?1"
     , nativeQuery = true)
     void modifyOrderRecordWithStatus(long id, int status);
 
