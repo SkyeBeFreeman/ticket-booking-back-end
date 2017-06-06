@@ -13,7 +13,9 @@ public interface OrderRecordDAO {
 
     OrderRecord findOrderRecordById(long id);
 
-    List<OrderRecord> findOrderRecodesByCustomer(long cumstomerId);
+    List<OrderRecord> findOrderRecodesByCustomerId(long cumstomerId);
+
+    List<OrderRecord> findOrderRecodesByPartnerId(long partnerId);
 
     boolean updateOrderRecordWithPartnerId(long id, long partnerId);
 

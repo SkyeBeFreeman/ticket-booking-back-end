@@ -13,7 +13,9 @@ public interface OrderRecordService {
 
     OrderRecord findOrderRecordById(long id);
 
-    List<OrderRecord> findOrderRecordsByCustomer(long customerId);
+    List<OrderRecord> findOrderRecordsByCustomerId(long customerId);
+
+    List<OrderRecord> findOrderRecordsByPartnerId(long partnerId);
 
     boolean updateOrderRecordWithPartnerId(long id, long partnerId);
 
