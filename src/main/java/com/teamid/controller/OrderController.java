@@ -82,13 +82,14 @@ public class OrderController {
 
         long userId = LoginUtils.getLoginUserId(session);
 
+        if (partnerTicketId == -1)
+            throw new NotAcceptableException("该订单不接受约影");
+
         Ticket partnerTicket = ticketService.getTicketById(partnerTicketId);
 
         if (partnerTicket == null)
             throw new NotAcceptableException("无效的电影票");
 
-        if (partnerTicketId == -1)
-            throw new NotAcceptableException("该订单不接受约影");
         if (ticketService.checkPartnerTicketExpired(partnerTicketId))
             throw new NotAcceptableException("开场前一小时后不接受约影");
 
