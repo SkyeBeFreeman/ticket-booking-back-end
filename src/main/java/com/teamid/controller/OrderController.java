@@ -77,7 +77,7 @@ public class OrderController {
 
     }
 
-    @GetMapping(value = "/participate/{ticketId}")
+    @GetMapping(value = "/participate/{partnerTicketId}")
     public ResponseEntity<?> participate(@PathVariable long partnerTicketId, HttpSession session) {
 
         long userId = LoginUtils.getLoginUserId(session);
