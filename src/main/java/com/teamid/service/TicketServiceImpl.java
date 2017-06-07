@@ -62,7 +62,7 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketDAO.findTicketById(ticketId);
         long scheduleId = ticket.getScheduleId();
         Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
-        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+        long gap = LocalDateTimeUtils.getDifference(schedule.getStartTime(), LocalDateTime.now());
 
         return gap <= 0;
 
@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketDAO.findTicketById(ticketId);
         long scheduleId = ticket.getScheduleId();
         Schedule schedule = scheduleService.findScheduleByScheduleId(scheduleId).get();
-        long gap = LocalDateTimeUtils.getDifference(LocalDateTime.now(), schedule.getStartTime());
+        long gap = LocalDateTimeUtils.getDifference(schedule.getStartTime(), LocalDateTime.now());
 
         return gap <= 60;
 

@@ -96,6 +96,7 @@ public class OrderController {
         orderRecord.setPartnerId(userId);
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);
         orderRecord.setStatus(OrderStatus.RECEIVED.ordinal());
+        orderRecordService.updateOrderRecordWithStatus(orderId, OrderStatus.RECEIVED.ordinal());
         ticketService.modifyTicketStatusById(partnerTicketId, TicketStatus.SOLD.ordinal());
 
         return new ResponseEntity<>(new Order(orderId, orderRecord.getCustomerId(), orderRecord.getPartnerId(),
