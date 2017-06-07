@@ -87,8 +87,6 @@ public class OrderController {
         if (partnerTicket == null)
             throw new NotAcceptableException("无效的电影票");
 
-        long partnerTicketId = partnerTicket.getId();
-
         if (partnerTicketId == -1)
             throw new NotAcceptableException("该订单不接受约影");
         if (ticketService.checkPartnerTicketExpired(partnerTicketId))
