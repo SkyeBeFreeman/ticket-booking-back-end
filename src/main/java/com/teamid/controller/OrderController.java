@@ -91,9 +91,12 @@ public class OrderController {
             throw new NotAcceptableException("无效的电影票");
 
         if (ticketService.checkPartnerTicketExpired(partnerTicketId))
-            throw new NotAcceptableException("开场前一小时后不接受约影");
+            throw new NotAcceptableException("电影开场前一小时以后不接受约影");
 
         OrderRecord orderRecord = orderRecordService.findOrderRecordByPartnerTicketId(partnerTicket.getId());
+
+        if (userId == orderRecord.getCustomerId())
+            throw new NotAcceptableException("不能和自己约影噢= =");
 
         long orderId = orderRecord.getId();
 
