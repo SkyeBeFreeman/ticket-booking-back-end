@@ -43,6 +43,11 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     }
 
     @Override
+    public OrderRecord findOrderRecordByPartnerTicketId(long partnerTicketId) {
+        return orderRecordDAO.findOrderRecordByPartnerTicketId(partnerTicketId);
+    }
+
+    @Override
     public boolean updateOrderRecordWithPartnerId(long id, long partnerId) {
         return orderRecordDAO.updateOrderRecordWithPartnerId(id, partnerId);
     }

@@ -77,21 +77,25 @@ public class OrderController {
 
     }
 
-    @GetMapping(value = "/participate/{orderId}")
-    public ResponseEntity<?> participate(@PathVariable long orderId, HttpSession session) {
+    @GetMapping(value = "/participate/{ticketId}")
+    public ResponseEntity<?> participate(@PathVariable long partnerTicketId, HttpSession session) {
 
         long userId = LoginUtils.getLoginUserId(session);
 
-        OrderRecord orderRecord = orderRecordService.findOrderRecordById(orderId);
-
-        if (orderRecord == null)
-            throw new NotFoundException("无效的订单");
-
-        long partnerTicketId = orderRecord.getPartnerTicketId();
         if (partnerTicketId == -1)
             throw new NotAcceptableException("该订单不接受约影");
-        if (ticketService.checkPartnerTicketExpired(partnerTicketId))
+
+        Ticket partnerTicket = ticketService.getTicketById(partnerTicketId);
+
+        if (partnerTicket == null)
             throw new NotAcceptableException("无效的电影票");
+
+        if (ticketService.checkPartnerTicketExpired(partnerTicketId))
+            throw new NotAcceptableException("开场前一小时后不接受约影");
+
+        OrderRecord orderRecord = orderRecordService.findOrderRecordByPartnerTicketId(partnerTicket.getId());
+
+        long orderId = orderRecord.getId();
 
         orderRecord.setPartnerId(userId);
         orderRecordService.updateOrderRecordWithPartnerId(orderId, userId);

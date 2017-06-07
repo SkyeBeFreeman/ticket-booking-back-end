@@ -30,8 +30,8 @@ public class OrderRecordDAOImpl implements OrderRecordDAO {
     }
 
     @Override
-    public List<OrderRecord> findOrderRecodesByCustomerId(long cumstomerId) {
-        List<OrderRecord> orderRecords = orderRecordRepository.findOrderRecordsByCustomerId(cumstomerId);
+    public List<OrderRecord> findOrderRecodesByCustomerId(long customerId) {
+        List<OrderRecord> orderRecords = orderRecordRepository.findOrderRecordsByCustomerId(customerId);
         return orderRecords;
     }
 
@@ -39,6 +39,11 @@ public class OrderRecordDAOImpl implements OrderRecordDAO {
     public List<OrderRecord> findOrderRecodesByPartnerId(long partnerId) {
         List<OrderRecord> orderRecords = orderRecordRepository.findOrderRecordsByPartnerId(partnerId);
         return orderRecords;
+    }
+
+    @Override
+    public OrderRecord findOrderRecordByPartnerTicketId(long partnerTicketId) {
+        return orderRecordRepository.findOrderRecordByPartnerTicketId(partnerTicketId);
     }
 
     @Override
