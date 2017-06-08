@@ -173,7 +173,7 @@ public class OrderController {
             long partnerTicketId = orderRecords.get(i).getPartnerTicketId();
 
 
-            User customer = userService.findUserById(userId);
+            User customer = userService.findUserById(customerId);
             User partner = userService.findUserById(partnerId);
             Ticket ticket = ticketService.getTicketById(customerTicketId);
 
