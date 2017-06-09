@@ -13,7 +13,7 @@ public class OrderDetail {
     long customerTicketId;
     long partnerTicketId;
 
-    int orderStatu;
+    int orderStatus;
 
     String movieCnName;
     String movieEnName;
@@ -50,7 +50,7 @@ public class OrderDetail {
     }
 
     public int getOrderStatus() {
-        return orderStatu;
+        return orderStatus;
     }
 
     public String getMovieCnName() {
@@ -78,7 +78,7 @@ public class OrderDetail {
     }
 
     public void setOrderStatus(int orderStatus) {
-        this.orderStatu = orderStatus;
+        this.orderStatus = orderStatus;
     }
 
     public void setMovieCnName(String movieCnName) {
@@ -151,14 +151,14 @@ public class OrderDetail {
     }
 
     public OrderDetail(long orderId, long customerId, long partnerId, long customerTicketId, long partnerTicketId,
-                       int orderStatu, String movieCnName, String movieEnName, String startTime, String endTime,
+                       int orderStatus, String movieCnName, String movieEnName, String startTime, String endTime,
                        String cinemaName, int posX, int posY, String customerPhone, String partnerPhone) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.partnerId = partnerId;
         this.customerTicketId = customerTicketId;
         this.partnerTicketId = partnerTicketId;
-        this.orderStatu = orderStatu;
+        this.orderStatus = orderStatus;
         this.movieCnName = movieCnName;
         this.movieEnName = movieEnName;
         this.startTime = startTime;
