@@ -208,7 +208,7 @@ public class OrderController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM月dd日 HH:mm");
 
             OrderDetail orderDetail;
-            if (i < customerOrderRecords.size()) {
+            if (userId == customerId) {
                 orderDetail = new OrderDetail(orderId, customerId, partnerId, customerTicketId,
                         partnerTicketId, orderStatus, movieNameCn, movieNameEn, startTime.format(formatter), endTime,
                         cinemaName, posX, posY, customerPhone, partnerPhone);
