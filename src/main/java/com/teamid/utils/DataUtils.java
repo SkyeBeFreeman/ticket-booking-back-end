@@ -21,7 +21,7 @@ public class DataUtils {
                                    MovieRepository movieRepository,
                                    ScheduleRepository scheduleRepository,
                                    TicketRepository ticketRepository) {
-        /*cinemaRepository.save(new Cinema("金逸珠江国际影城(大学城店)",
+        cinemaRepository.save(new Cinema("金逸珠江国际影城(大学城店)",
                 "番禺区小谷围街贝岗村中二横路1号高高新天地商业广场B2B001铺",
                 8.8f));
         cinemaRepository.save(new Cinema("广东科学中心IMAX巨幕影院",
@@ -64,23 +64,23 @@ public class DataUtils {
 
 
         scheduleRepository.save(new Schedule(1, 1, 3,
-                LocalDateTime.of(2017, 6, 4, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 7, 4, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(1, 2, 2,
-                LocalDateTime.of(2017, 5, 28, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 7, 28, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(1, 3, 1,
-                LocalDateTime.of(2017, 6, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(2, 1, 3,
-                LocalDateTime.of(2017, 6, 6, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 7, 6, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(2, 2, 2,
-                LocalDateTime.of(2017, 6, 1, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 7, 1, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(2, 3, 1,
-                LocalDateTime.of(2017, 6, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
         scheduleRepository.save(new Schedule(3, 1, 3,
-                LocalDateTime.of(2017, 6, 8, 20, 0), "22:22", 68));
+                LocalDateTime.of(2017, 7, 8, 20, 0), "22:22", 68));
         scheduleRepository.save(new Schedule(3, 2, 2,
-                LocalDateTime.of(2017, 5, 27, 11, 30), "13:39", 59.8f));
+                LocalDateTime.of(2017, 7, 27, 11, 30), "13:39", 59.8f));
         scheduleRepository.save(new Schedule(3, 3, 1,
-                LocalDateTime.of(2017, 6, 15, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 7, 15, 22, 0), "23:46", 75f));
 
         for (long scheduleId = 1L; scheduleId <= SCHEDULE_NUM; scheduleId++) {
             for (int posX = 1; posX <= POSX_NUM; posX++) {
@@ -88,7 +88,7 @@ public class DataUtils {
                     ticketRepository.save(new Ticket(scheduleId, posX, posY));
                 }
             }
-        }*/
+        }
 
         cinemaRepository.save(new Cinema("万达影城(万胜围万达影城店)",
                 "海珠区新港东路1236号万胜广场五层",
@@ -180,41 +180,41 @@ public class DataUtils {
                 0L));
 
         scheduleRepository.save(new Schedule(4, 9, 3,
-                LocalDateTime.of(2017, 6, 15, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 7, 15, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(5, 8, 2,
-                LocalDateTime.of(2017, 6, 28, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 7, 28, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(6, 7, 1,
-                LocalDateTime.of(2017, 6, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(6, 6, 3,
-                LocalDateTime.of(2017, 6, 8, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 7, 8, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(5, 5, 2,
-                LocalDateTime.of(2017, 6, 11, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 7, 11, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(4, 4, 1,
-                LocalDateTime.of(2017, 6, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
         scheduleRepository.save(new Schedule(7, 3, 3,
-                LocalDateTime.of(2017, 6, 8, 20, 0), "22:22", 68));
+                LocalDateTime.of(2017, 7, 8, 20, 0), "22:22", 68));
         scheduleRepository.save(new Schedule(7, 2, 2,
-                LocalDateTime.of(2017, 6, 27, 11, 30), "13:39", 59.8f));
+                LocalDateTime.of(2017, 7, 27, 11, 30), "13:39", 59.8f));
         scheduleRepository.save(new Schedule(8, 1, 1,
-                LocalDateTime.of(2017, 6, 9, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 7, 9, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(8, 1, 1,
-                LocalDateTime.of(2017, 6, 11, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 7, 11, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(9, 2, 2,
-                LocalDateTime.of(2017, 6, 13, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 7, 13, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(9, 3, 3,
-                LocalDateTime.of(2017, 6, 15, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 7, 15, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(10, 4, 3,
-                LocalDateTime.of(2017, 6, 24, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 7, 24, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(11, 5, 2,
-                LocalDateTime.of(2017, 6, 18, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 7, 18, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(12, 6, 1,
-                LocalDateTime.of(2017, 6, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(12, 7, 3,
-                LocalDateTime.of(2017, 6, 26, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 7, 26, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(11, 8, 2,
-                LocalDateTime.of(2017, 6, 21, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 7, 21, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(10, 9, 1,
-                LocalDateTime.of(2017, 6, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
 
         for (long scheduleId = 10L; scheduleId <= SCHEDULE_NUM; scheduleId++) {
             for (int posX = 1; posX <= POSX_NUM; posX++) {
