@@ -1,0 +1,441 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: 约影API
+
+schemes:
+  - http
+host: localhost:48403
+basePath: /
+
+paths:
+  /user/register:
+    post:
+      summary: 用户注册
+      parameters:
+        - name: UserForm
+          in: body
+          schema:
+            $ref: "#/definitions/UserForm"
+      responses:
+        200:
+          description: 注册成功
+          schema:
+            $ref: "#/definitions/UserInShort"
+        406:
+          description: 注册失败
+          schema:
+            type: string
+
+  /user/login:
+    post: 
+      summary: 用户登录
+      parameters:
+        - in: body
+          schema:
+            required:
+              - phone
+              - password
+            properties:
+              phone:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: 登录成功
+          schema:
+            $ref: "#/definitions/UserInShort"
+        401:
+          description: 登录失败
+          schema:
+            type: string
+  
+  /user/userinfo:
+    get: 
+      summary: 获取用户信息
+      responses:
+        200:
+          description: 成功获取用户信息
+          schema:
+            $ref: "#/definitions/UserInShort"
+        404:
+          description: 用户不存在
+          schema:
+            type: string
+
+  /cinema/hotcinemas:
+    get: 
+      summary: 获取热门影院信息
+      responses:
+        200:
+          # 列表按星级排名
+          description: 成功获取热门影院信息
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Cinema"
+
+  /movie/like/{movieId}:
+    get: 
+      summary: 给电影点赞
+      parameters:
+        - name: movieId
+          in: path
+          schema:
+            type: number
+      responses:
+        200:
+          description: 成功点赞
+          schema:
+            $ref: "#/definitions/Movie"
+        404:
+          description: 电影不存在
+          schema:
+            type: string  
+  
+  /movie/hotmovies/{movieIndex}:
+    get: 
+      summary: 获取热门电影的简略信息
+      parameters:
+        # 参数为获取的电影列表的起始下标, 列表按评分和点赞数进行排名
+        - name: movieIndex
+          required: true
+          in: path
+          type: number
+      responses:
+        200:
+          description: 成功获取热门电影的简略信息
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/MovieInShort"
+        404:
+          description: 电影不存在
+          schema:
+            type: string
+
+  /movie/cinema/{cinemaId}:
+    get: 
+      summary: 根据影院获取所有播放的电影的简略信息
+      parameters:
+        - name: cinemaId
+          required: true
+          in: path
+          type: number
+      responses:
+        200:
+          description: 成功获取所有播放的电影的简略信息
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/MovieInShort"
+        404:
+          description: 电影院不存在
+          schema:
+            type: string
+
+  /movie/{movieId}:
+    get: 
+      summary: 获取电影具体信息
+      parameters:
+        - name: movieId
+          required: true
+          in: path
+          type: number
+      responses:
+        200:
+          description: 成功获取电影具体信息
+          schema:
+            $ref: "#/definitions/Movie"
+        404:
+          description: 电影不存在
+          schema:
+            type: string
+
+  /schedule/scheduleinfo:
+    post: 
+      summary: 根据电影院、电影获取所有档期的简略信息
+      parameters:
+        - in: body
+          schema:
+            required:
+              - cinemaId
+              - movieId
+            properties:
+              cinemaId:
+                type: number
+              movieId:
+                type: number
+      responses:
+        200:
+          description: 成功获取所有档期的简略信息
+          schema:
+            $ref: "#/definitions/ScheduleInShort"
+        404:
+          description: 电影院不存在/电影院不存在
+          schema:
+            type: string
+
+  /schedule/{scheduleId}:
+    get: 
+      summary: 获取当前档期（电影、影厅）具体信息
+      parameters:
+        - name: scheduleId
+          required: true
+          in: path
+          type: number
+      responses:
+        200:
+          description: 成功获取当前档期（电影、影厅）具体信息
+          schema:
+            $ref: "#/definitions/Schedule"
+        404:
+          description: 档期不存在
+          schema:
+            type: string
+  
+  /ticket/buy/{ticketId}:
+    get:
+      summary: 购买电影票
+      parameters:
+        - name: ticketId
+          in: path
+          schema:
+            type: number
+      responses:
+        204:
+          description: 购买成功
+        401:
+          description: 用户未登录
+          schema:
+            type: string
+        403:
+          description: 购买失败
+          schema:
+            type: string
+        404:
+          description: 用户不存在/电影票不存在
+          schema:
+            type: string  
+
+  /order/create:
+    post: 
+      summary: 创建订单
+      parameters:
+        - name: Order
+          in: body
+          schema:
+            required:
+              - customerTicketId
+            properties:
+              customerTicketId:
+                type: number
+              partnerTicketId:
+                type: number
+              message:
+                type: text
+      responses:
+        200:
+          description: 订单创建成功
+          schema:
+            $ref: "#/definitions/Order"
+        404:
+          description: 用户不存在/电影票不存在
+          schema:
+            type: string
+        406:
+          description: 电影票已过期
+          schema:
+            type: string
+  
+  /order/participate/{orderId}:
+    get: 
+      summary: 申请参与约影
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: number
+      responses:
+        200:
+          description: 申请创建成功
+          schema:
+            $ref: "#/definitions/Order"
+        404:
+          description: 订单不存在/用户不存在
+          schema:
+            type: string
+        406:
+          description: 电影票已过期
+          schema:
+            type: string
+
+  /order/cancel/{orderId}:
+    get: 
+      summary: 取消订单
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: number
+      responses:
+        204:
+          description: 取消成功
+        404:
+          description: 订单不存在/用户不存在
+          schema:
+            type: string
+        406:
+          description: 电影票已过期
+          schema:
+            type: string
+
+  /order/allorder/:
+    get: 
+      summary: 获取当前用户所有的订单信息
+      responses:
+        200:
+          description: 成功获取当前用户所有的订单信息
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Order"
+        404:
+          description: 用户不存在
+          schema:
+            type: string
+
+definitions:
+
+  UserForm:
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      gender:
+        type: bool
+      phone:
+        type: string
+  
+  UserInShort:
+    properties:
+      username:
+        type: string
+      gender:
+        type: bool
+      phone:
+        type: string
+
+  Cinema:
+    properties:
+      cinemaId:
+        type: number
+      name:
+        type: string
+      address:
+        type: string
+      rank:
+        type: float
+
+  Movie:
+    properties:
+      movieId:
+        type: number
+      nameCh:
+        type: string
+      nameEn:
+        type: string
+      origin:
+        type: string
+      duration:
+        type: string
+      releaseTime:
+        type: string
+      introduction:
+        type: string
+      rank:
+        type: float
+      post:
+        type: string
+      likes:
+        type: number
+ 
+  MovieInShort:
+    properties:
+      movieId:
+        type: number
+      nameCh:
+        type: string
+      rank:
+        type: float
+      post:
+        type: string
+      likes:
+        type: number
+
+  Schedule:
+    properties:
+      scheduleId:
+        type: number
+      cinemaId:
+        type: number
+      movieId:
+        type: number
+      hall:
+        type: number
+      startTime:
+        type: string
+      endTime:
+        type: string
+      price:
+        type: float
+      tickets:
+        type: array
+        items:
+          $ref: "#/definitions/Ticket" 
+
+  ScheduleInShort:
+    properties:
+      scheduleId:
+        type: number
+      cinemaId:
+        type: number
+      movieId:
+        type: number
+      hall:
+        type: number
+      startTime:
+        type: string
+      endTime:
+        type: string
+      price:
+        type: float
+
+  Ticket:
+    properties:
+      ticketId:
+        type: number
+      scheduleId:
+        type: number
+      status:
+        type: number
+      posX:
+        type: number
+      posY:
+        type: number      
+
+  Order:
+    properties:
+      orderId:
+        type: number
+      customerId:
+        type: number
+      partnerId:
+        type: number
+      customerTicketId:
+        type: number
+      partnerTicketId:
+        type: number     
