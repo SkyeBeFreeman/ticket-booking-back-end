@@ -12,12 +12,12 @@ Project for Software System Analysis and Design Course
 
 技术支持：
 
-Spring Boot
+- Spring Boot
 
-Swagger
+- Swagger
 
-Node.js
+- Node.js
 
-MySQL
+- MySQL
 
-Redis
+- Redis
