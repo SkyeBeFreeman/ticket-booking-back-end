@@ -64,23 +64,23 @@ public class DataUtils {
 
 
         scheduleRepository.save(new Schedule(1, 1, 3,
-                LocalDateTime.of(2017, 7, 4, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 9, 4, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(1, 2, 2,
-                LocalDateTime.of(2017, 7, 28, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 9, 28, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(1, 3, 1,
-                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 9, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(2, 1, 3,
-                LocalDateTime.of(2017, 7, 6, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 9, 6, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(2, 2, 2,
-                LocalDateTime.of(2017, 7, 1, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 9, 1, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(2, 3, 1,
-                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 9, 14, 19, 0), "20:46", 43.5f));
         scheduleRepository.save(new Schedule(3, 1, 3,
-                LocalDateTime.of(2017, 7, 8, 20, 0), "22:22", 68));
+                LocalDateTime.of(2017, 9, 8, 20, 0), "22:22", 68));
         scheduleRepository.save(new Schedule(3, 2, 2,
-                LocalDateTime.of(2017, 7, 27, 11, 30), "13:39", 59.8f));
+                LocalDateTime.of(2017, 9, 27, 11, 30), "13:39", 59.8f));
         scheduleRepository.save(new Schedule(3, 3, 1,
-                LocalDateTime.of(2017, 7, 15, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 9, 15, 22, 0), "23:46", 75f));
 
         for (long scheduleId = 1L; scheduleId <= SCHEDULE_NUM; scheduleId++) {
             for (int posX = 1; posX <= POSX_NUM; posX++) {
@@ -180,41 +180,41 @@ public class DataUtils {
                 0L));
 
         scheduleRepository.save(new Schedule(4, 9, 3,
-                LocalDateTime.of(2017, 7, 15, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 9, 15, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(5, 8, 2,
-                LocalDateTime.of(2017, 7, 28, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 9, 28, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(6, 7, 1,
-                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 9, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(6, 6, 3,
-                LocalDateTime.of(2017, 7, 8, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 9, 8, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(5, 5, 2,
-                LocalDateTime.of(2017, 7, 11, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 9, 11, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(4, 4, 1,
-                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 9, 14, 19, 0), "20:46", 43.5f));
         scheduleRepository.save(new Schedule(7, 3, 3,
-                LocalDateTime.of(2017, 7, 8, 20, 0), "22:22", 68));
+                LocalDateTime.of(2017, 9, 8, 20, 0), "22:22", 68));
         scheduleRepository.save(new Schedule(7, 2, 2,
-                LocalDateTime.of(2017, 7, 27, 11, 30), "13:39", 59.8f));
+                LocalDateTime.of(2017, 9, 27, 11, 30), "13:39", 59.8f));
         scheduleRepository.save(new Schedule(8, 1, 1,
-                LocalDateTime.of(2017, 7, 9, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 9, 9, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(8, 1, 1,
-                LocalDateTime.of(2017, 7, 11, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 9, 11, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(9, 2, 2,
-                LocalDateTime.of(2017, 7, 13, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 9, 13, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(9, 3, 3,
-                LocalDateTime.of(2017, 7, 15, 22, 0), "23:46", 75f));
+                LocalDateTime.of(2017, 9, 15, 22, 0), "23:46", 75f));
         scheduleRepository.save(new Schedule(10, 4, 3,
-                LocalDateTime.of(2017, 7, 24, 0, 05), "02:27", 50f));
+                LocalDateTime.of(2017, 9, 24, 0, 05), "02:27", 50f));
         scheduleRepository.save(new Schedule(11, 5, 2,
-                LocalDateTime.of(2017, 7, 18, 11, 22), "13:31", 48.8f));
+                LocalDateTime.of(2017, 9, 18, 11, 22), "13:31", 48.8f));
         scheduleRepository.save(new Schedule(12, 6, 1,
-                LocalDateTime.of(2017, 7, 10, 9, 44), "11:30", 35f));
+                LocalDateTime.of(2017, 9, 10, 9, 44), "11:30", 35f));
         scheduleRepository.save(new Schedule(12, 7, 3,
-                LocalDateTime.of(2017, 7, 26, 9, 24), "11:46", 43.5f));
+                LocalDateTime.of(2017, 9, 26, 9, 24), "11:46", 43.5f));
         scheduleRepository.save(new Schedule(11, 8, 2,
-                LocalDateTime.of(2017, 7, 21, 13, 30), "15:39", 43.5f));
+                LocalDateTime.of(2017, 9, 21, 13, 30), "15:39", 43.5f));
         scheduleRepository.save(new Schedule(10, 9, 1,
-                LocalDateTime.of(2017, 7, 14, 19, 0), "20:46", 43.5f));
+                LocalDateTime.of(2017, 9, 14, 19, 0), "20:46", 43.5f));
 
         for (long scheduleId = 10L; scheduleId <= SCHEDULE_NUM; scheduleId++) {
             for (int posX = 1; posX <= POSX_NUM; posX++) {
